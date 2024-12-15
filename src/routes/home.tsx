@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPlaceHolder } from '../services/HomeServices';
-import Navbar from '../components/shared/Navbar';
+import { Navbar } from '../components/shared/Navbar';
 
-export default function () {
+export function HomeRoute() {
   const { isPending, isFetching, isError, data } = useQuery({
     queryKey: ['cacheKey'],
     queryFn: getPlaceHolder,
