@@ -1,5 +1,5 @@
-import type { paths } from '../schema';
-import { ENV } from '../env';
+import type { paths } from '@/schema';
+import { ENV } from '@/env';
 import type { Route } from './+types/users';
 
 type UsersResponse =

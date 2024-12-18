@@ -56,7 +56,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/users/:username": {
+    "/users/{username}": {
         parameters: {
             query?: never;
             header?: never;
@@ -68,7 +68,9 @@ export interface paths {
             parameters: {
                 query?: never;
                 header?: never;
-                path?: never;
+                path: {
+                    username: string;
+                };
                 cookie?: never;
             };
             requestBody?: never;
@@ -105,7 +107,7 @@ export interface paths {
                     };
                     content?: never;
                 };
-                /** @description Failed to retrieve user */
+                /** @description Failed to get user */
                 500: {
                     headers: {
                         [name: string]: unknown;
@@ -224,6 +226,326 @@ export interface paths {
                     content?: never;
                 };
                 /** @description Failed to retrieve city */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/register": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Register user. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        name: string;
+                        username: string;
+                        email: string;
+                        avatarURL?: string | null;
+                        password: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description User registered successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            name: string;
+                            username: string;
+                            email: string;
+                            avatarURL: string | null;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        };
+                    };
+                };
+                /** @description Validation error */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to register user */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Login user. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        email: string;
+                        password: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description User logged in successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            name: string;
+                            username: string;
+                            email: string;
+                            avatarURL: string | null;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        };
+                    };
+                };
+                /** @description Validation error */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Invalid email or password */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to login user */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get authenticated user information. */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description User information retrieved successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Authorization header not found | Token not found | Invalid token | User not found */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to retrieve user information */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/places": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get a list of places. */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Places retrieved successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            slug: string;
+                            name: string;
+                            description: string | null;
+                            priceMin: unknown;
+                            priceMax: unknown;
+                            cityId: string;
+                            address: string;
+                            latitude: number;
+                            longitude: number;
+                            userId: string;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        }[];
+                    };
+                };
+                /** @description Failed to retrieve cities */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/places/:slug": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get a place by slug. */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Place retrieved successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            slug: string;
+                            name: string;
+                            description: string | null;
+                            priceMin: unknown;
+                            priceMax: unknown;
+                            cityId: string;
+                            address: string;
+                            latitude: number;
+                            longitude: number;
+                            userId: string;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        };
+                    };
+                };
+                /** @description Invalid place slug */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Place not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to retrieve place */
                 500: {
                     headers: {
                         [name: string]: unknown;

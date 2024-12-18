@@ -11,12 +11,19 @@
     "generate:prod": "openapi-typescript https://api.feastfind.com/openapi.json -o ./app/schema.d.ts"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.1",
     "@react-router/node": "^7.0.2",
     "@react-router/serve": "^7.0.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "isbot": "^5.1.17",
+    "lucide-react": "^0.468.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router": "^7.0.2"
+    "react-router": "^7.0.2",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@react-router/dev": "^7.0.2",
