@@ -14,7 +14,7 @@ export function meta({}: Route.MetaArgs) {
 export default function login() {
   const navigate = useNavigate();
   return (
-    <div className="max-w-[500px] h-screen bg-white mx-auto border border-red-200">
+    <>
       <div className="flex flex-1 h-full items-center justify-center border border-yellow-200">
         <div className="w-full max-w-xs">
           <form className="flex flex-col gap-6">
@@ -82,6 +82,6 @@ export default function login() {
           </form>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -56,26 +56,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/users/{username}": {
+    "/users/{param}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get a user by username. */
+        /** @description Get a user by param. */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
                 path: {
-                    username: string;
+                    param: string;
                 };
                 cookie?: never;
             };
             requestBody?: never;
             responses: {
-                /** @description Get all users */
+                /** @description User retrieved successfully */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -93,7 +93,7 @@ export interface paths {
                         }[];
                     };
                 };
-                /** @description Invalid username */
+                /** @description Invalid param */
                 400: {
                     headers: {
                         [name: string]: unknown;
@@ -176,19 +176,21 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/cities/:slug": {
+    "/cities/{param}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get a city by slug. */
+        /** @description Get a city by param. */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
-                path?: never;
+                path: {
+                    param: string;
+                };
                 cookie?: never;
             };
             requestBody?: never;
@@ -211,7 +213,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Invalid city slug */
+                /** @description Invalid param */
                 400: {
                     headers: {
                         [name: string]: unknown;
@@ -272,7 +274,7 @@ export interface paths {
             };
             responses: {
                 /** @description User registered successfully */
-                200: {
+                201: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -331,7 +333,8 @@ export interface paths {
             requestBody?: {
                 content: {
                     "application/json": {
-                        email: string;
+                        /** @description identifier: email | username */
+                        identifier: string;
                         password: string;
                     };
                 };
@@ -461,8 +464,8 @@ export interface paths {
                             slug: string;
                             name: string;
                             description: string | null;
-                            priceMin: unknown;
-                            priceMax: unknown;
+                            priceMin: string;
+                            priceMax: string;
                             cityId: string;
                             address: string;
                             latitude: number;
@@ -490,19 +493,21 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/places/:slug": {
+    "/places/{param}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get a place by slug. */
+        /** @description Get a place by param. */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
-                path?: never;
+                path: {
+                    param: string;
+                };
                 cookie?: never;
             };
             requestBody?: never;
@@ -519,8 +524,8 @@ export interface paths {
                             slug: string;
                             name: string;
                             description: string | null;
-                            priceMin: unknown;
-                            priceMax: unknown;
+                            priceMin: string;
+                            priceMax: string;
                             cityId: string;
                             address: string;
                             latitude: number;
@@ -546,6 +551,200 @@ export interface paths {
                     content?: never;
                 };
                 /** @description Failed to retrieve place */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/menuItem": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get a list of menu items. */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Menu Items retrieved successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            slug: string;
+                            name: string;
+                            price: string;
+                            description: string | null;
+                            placeId: string;
+                            userId: string;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        }[];
+                    };
+                };
+                /** @description Failed to retrieve menu items */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/menuItem/{param}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get a menu item by param. */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    param: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Menu item retrieved successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            slug: string;
+                            name: string;
+                            price: string;
+                            description: string | null;
+                            placeId: string;
+                            userId: string;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        };
+                    };
+                };
+                /** @description Invalid param */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Menu item not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to retrieve menu item */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/menuItem/{param}/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get menu item reviews by menu param. */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    param: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Menu item reviews retrieved successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            slug: string;
+                            name: string;
+                            price: unknown;
+                            description: string | null;
+                            placeId: string;
+                            userId: string;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        };
+                    };
+                };
+                /** @description Invalid menu param */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Menu item reviews not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to retrieve menu item reviews */
                 500: {
                     headers: {
                         [name: string]: unknown;

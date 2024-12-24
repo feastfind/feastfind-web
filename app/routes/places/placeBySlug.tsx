@@ -1,4 +1,5 @@
-import type { Route } from './+types/home';
+import type { Route } from './+types/placeBySlug';
+
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,7 +13,6 @@ import {
   User,
   EllipsisVertical,
 } from 'lucide-react';
-import { useNavigate } from 'react-router';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -22,9 +22,8 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function placesById() {
-  const navigate = useNavigate();
   return (
-    <div className="relative max-w-[500px] h-screen overflow-auto no-scrollbar bg-white mx-auto">
+    <>
       <div className="bg-red-500 p-4 flex justify-start items-center gap-4">
         <div className="border border-white rounded p-2">
           <MapPin color="white" />
@@ -87,36 +86,6 @@ export default function placesById() {
           ))}
         </section>
       </main>
-
-      <div className="sticky bottom-0 left-0 right-0 w-full bg-white flex justify-start items-center gap-4">
-        <div className="w-full h-full flex justify-around items-center p-2">
-          <div
-            className="p-4 hover:bg-slate-100 text-red-500"
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            <House />
-          </div>
-
-          <div className="p-4 hover:bg-slate-100 text-red-500">
-            <MapPinned />
-          </div>
-
-          <div className="p-4 hover:bg-slate-100 text-red-500">
-            <Heart />
-          </div>
-
-          <div
-            className="p-4 hover:bg-slate-100 text-red-500"
-            onClick={() => {
-              navigate('/login');
-            }}
-          >
-            <User />
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }

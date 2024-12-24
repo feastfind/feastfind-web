@@ -16,7 +16,7 @@ export default function UsersRoute({ loaderData }: Route.ComponentProps) {
   const { users } = loaderData;
 
   return (
-    <div>
+    <>
       <h1>All Users</h1>
 
       <ul>
@@ -27,6 +27,6 @@ export default function UsersRoute({ loaderData }: Route.ComponentProps) {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 }
