@@ -28,15 +28,18 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: cuid */
-                            id: string;
-                            name: string;
-                            username: string;
-                            email: string;
-                            avatarURL: string | null;
-                            createdAt: string | null;
-                            updatedAt: string | null;
-                        }[];
+                            count: number;
+                            users: {
+                                /** Format: cuid */
+                                id: string;
+                                name: string;
+                                username: string;
+                                email: string;
+                                avatarURL: string | null;
+                                createdAt: string | null;
+                                updatedAt: string | null;
+                            }[];
+                        };
                     };
                 };
                 /** @description Failed to get all users */
@@ -56,20 +59,20 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/users/{param}": {
+    "/users/{username}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get a user by param. */
+        /** @description Get a user by username. */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
                 path: {
-                    param: string;
+                    username: string;
                 };
                 cookie?: never;
             };
@@ -90,7 +93,7 @@ export interface paths {
                             avatarURL: string | null;
                             createdAt: string | null;
                             updatedAt: string | null;
-                        }[];
+                        };
                     };
                 };
                 /** @description Invalid param */
@@ -148,15 +151,18 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: cuid */
-                            id: string;
-                            slug: string;
-                            name: string;
-                            latitude: number;
-                            longitude: number;
-                            createdAt: string | null;
-                            updatedAt: string | null;
-                        }[];
+                            count: number;
+                            cities: {
+                                /** Format: cuid */
+                                id: string;
+                                slug: string;
+                                name: string;
+                                latitude: number;
+                                longitude: number;
+                                createdAt: string | null;
+                                updatedAt: string | null;
+                            }[];
+                        };
                     };
                 };
                 /** @description Failed to retrieve cities */
@@ -176,20 +182,20 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/cities/{param}": {
+    "/cities/{slug}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get a city by param. */
+        /** @description Get a city by slug. */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
                 path: {
-                    param: string;
+                    slug: string;
                 };
                 cookie?: never;
             };
@@ -213,7 +219,7 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Invalid param */
+                /** @description Invalid slug */
                 400: {
                     headers: {
                         [name: string]: unknown;
@@ -459,21 +465,24 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: cuid */
-                            id: string;
-                            slug: string;
-                            name: string;
-                            description: string | null;
-                            priceMin: string;
-                            priceMax: string;
-                            cityId: string;
-                            address: string;
-                            latitude: number;
-                            longitude: number;
-                            userId: string;
-                            createdAt: string | null;
-                            updatedAt: string | null;
-                        }[];
+                            count: number;
+                            place: {
+                                /** Format: cuid */
+                                id: string;
+                                slug: string;
+                                name: string;
+                                description: string | null;
+                                priceMin: string;
+                                priceMax: string;
+                                cityId: string;
+                                address: string;
+                                latitude: number;
+                                longitude: number;
+                                userId: string;
+                                createdAt: string | null;
+                                updatedAt: string | null;
+                            }[];
+                        };
                     };
                 };
                 /** @description Failed to retrieve cities */
@@ -486,27 +495,96 @@ export interface paths {
             };
         };
         put?: never;
-        post?: never;
+        /** @description Add a new place. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        name: string;
+                        description: string | null;
+                        priceMin: number;
+                        priceMax: number;
+                        city: string;
+                        address: string;
+                        latitude: number;
+                        longitude: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description Place created successfully */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            slug: string;
+                            name: string;
+                            description: string | null;
+                            priceMin: unknown;
+                            priceMax: unknown;
+                            cityId: string;
+                            address: string;
+                            latitude: number;
+                            longitude: number;
+                            userId: string;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        };
+                    };
+                };
+                /** @description Validation error */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Place not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to create place */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/places/{param}": {
+    "/places/{slug}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get a place by param. */
+        /** @description Get a place by slug. */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
                 path: {
-                    param: string;
+                    slug: string;
                 };
                 cookie?: never;
             };
@@ -561,13 +639,145 @@ export interface paths {
         };
         put?: never;
         post?: never;
-        delete?: never;
+        /** @description Delete a place. */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    slug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Place deleted successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                            place: {
+                                /** Format: cuid */
+                                id: string;
+                                slug: string;
+                                name: string;
+                                description: string | null;
+                                priceMin: unknown;
+                                priceMax: unknown;
+                                cityId: string;
+                                address: string;
+                                latitude: number;
+                                longitude: number;
+                                userId: string;
+                                createdAt: string | null;
+                                updatedAt: string | null;
+                            };
+                        };
+                    };
+                };
+                /** @description Validation error */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Place not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to delete place */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
         options?: never;
         head?: never;
-        patch?: never;
+        /** @description Update a place. */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    slug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        name?: string;
+                        description?: string;
+                        priceMin?: number;
+                        priceMax?: number;
+                        city?: string;
+                        address?: string;
+                        latitude?: number;
+                        longitude?: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description Place updated successfully */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            slug: string;
+                            name: string;
+                            description: string | null;
+                            priceMin: unknown;
+                            priceMax: unknown;
+                            cityId: string;
+                            address: string;
+                            latitude: number;
+                            longitude: number;
+                            userId: string;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        };
+                    };
+                };
+                /** @description Validation error */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Place not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to update place */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
         trace?: never;
     };
-    "/menuItem": {
+    "/menu-items": {
         parameters: {
             query?: never;
             header?: never;
@@ -591,17 +801,20 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: cuid */
-                            id: string;
-                            slug: string;
-                            name: string;
-                            price: string;
-                            description: string | null;
-                            placeId: string;
-                            userId: string;
-                            createdAt: string | null;
-                            updatedAt: string | null;
-                        }[];
+                            count: number;
+                            menuItems: {
+                                /** Format: cuid */
+                                id: string;
+                                slug: string;
+                                name: string;
+                                price: string;
+                                description: string | null;
+                                placeId: string;
+                                userId: string;
+                                createdAt: string | null;
+                                updatedAt: string | null;
+                            }[];
+                        };
                     };
                 };
                 /** @description Failed to retrieve menu items */
@@ -614,27 +827,91 @@ export interface paths {
             };
         };
         put?: never;
-        post?: never;
+        /** @description Add a new menu item. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        name: string;
+                        price: number;
+                        description: string | null;
+                        images: {
+                            url: string;
+                        }[];
+                        placeSlug: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Menu Item created successfully */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            slug: string;
+                            name: string;
+                            price: unknown;
+                            description: string | null;
+                            placeId: string;
+                            userId: string;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        };
+                    };
+                };
+                /** @description Validation error */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Place not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to create menu item */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/menuItem/{param}": {
+    "/menu-items/{slug}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get a menu item by param. */
+        /** @description Get a menu item by slug. */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
                 path: {
-                    param: string;
+                    slug: string;
                 };
                 cookie?: never;
             };
@@ -691,20 +968,20 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/menuItem/{param}/reviews": {
+    "/menu-items/{slug}/reviews": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** @description Get menu item reviews by menu param. */
+        /** @description Get menu item reviews by menu item slug. */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
                 path: {
-                    param: string;
+                    slug: string;
                 };
                 cookie?: never;
             };
@@ -717,16 +994,19 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: cuid */
-                            id: string;
-                            slug: string;
-                            name: string;
-                            price: unknown;
-                            description: string | null;
-                            placeId: string;
-                            userId: string;
-                            createdAt: string | null;
-                            updatedAt: string | null;
+                            count: number;
+                            menuItemReviews: {
+                                /** Format: cuid */
+                                id: string;
+                                slug: string;
+                                name: string;
+                                price: unknown;
+                                description: string | null;
+                                placeId: string;
+                                userId: string;
+                                createdAt: string | null;
+                                updatedAt: string | null;
+                            }[];
                         };
                     };
                 };
@@ -754,7 +1034,67 @@ export interface paths {
             };
         };
         put?: never;
-        post?: never;
+        /** @description Add a new menu item review. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        menuItemId: string;
+                        rating: number;
+                        comment: string | null;
+                    };
+                };
+            };
+            responses: {
+                /** @description Menu item review created successfully */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: cuid */
+                            id: string;
+                            slug: string;
+                            name: string;
+                            price: unknown;
+                            description: string | null;
+                            placeId: string;
+                            userId: string;
+                            createdAt: string | null;
+                            updatedAt: string | null;
+                        };
+                    };
+                };
+                /** @description Validation error */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Menu item not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to create menu item review */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;

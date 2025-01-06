@@ -1,27 +1,55 @@
-import { House, MapPinned, Heart, User } from 'lucide-react';
-import { Link, Outlet } from 'react-router';
+import { House, MapPin, MapPinned, Heart, UserCog } from 'lucide-react';
+import { NavLink, Link, Outlet } from 'react-router';
 
 export default function AppLayout() {
   return (
-    <div className="relative max-w-[500px] h-screen overflow-auto no-scrollbar bg-white mx-auto">
+    <div className="max-w-[500px] relative min-h-screen border-l border-r mx-auto overflow-auto no-scrollbar">
+      <div className="w-full h-16 sticky top-0 border-b">
+        <div className="h-full flex items-center gap-4 px-4 hover:bg-gray-200">
+          <div className="size-6">
+            <MapPin />
+          </div>
+          <div className="flex flex-col font-medium">
+            <h2 className="text-xs">Current location</h2>
+            <p className="text-sm font-medium max-w-[300px] truncate">
+              Suite 846 87042 Schroeder Spring, Warrenside, OH 59614
+            </p>
+          </div>
+        </div>
+      </div>
+
       <Outlet />
 
-      <nav className="sticky bottom-0 left-0 right-0 w-full bg-white flex justify-start items-center gap-4">
-        <div className="w-full h-full flex justify-around items-center p-2">
-          <Link className="p-4 hover:bg-slate-100 text-red-500" to="/">
+      <nav className="fixed bottom-0 left-0 right-0 w-full max-w-[500px] mx-auto h-16 bg-white flex justify-start items-center gap-4 border">
+        <div className="w-full h-full flex justify-around">
+          <NavLink
+            to="/"
+            className={({ isActive }) => {
+              return `w-16 flex flex-col gap-0.5 justify-center items-center hover:bg-gray-100${
+                isActive ? ' text-red-500' : ''
+              }`;
+            }}
+          >
             <House />
-          </Link>
+            <span className="text-xs font-light">Home</span>
+          </NavLink>
 
-          <div className="p-4 hover:bg-slate-100 text-red-500">
+          <div className="w-16 flex flex-col gap-0.5 justify-center items-center hover:bg-gray-100">
             <MapPinned />
+            <span className="text-xs font-light">Explore</span>
           </div>
 
-          <div className="p-4 hover:bg-slate-100 text-red-500">
+          <div className="w-16 flex flex-col gap-0.5 justify-center items-center hover:bg-gray-100">
             <Heart />
+            <span className="text-xs font-light">Favourite</span>
           </div>
 
-          <Link className="p-4 hover:bg-slate-100 text-red-500" to="/login">
-            <User />
+          <Link
+            className="w-16 flex flex-col gap-0.5 justify-center items-center hover:bg-gray-100"
+            to="/login"
+          >
+            <UserCog />
+            <span className="text-xs font-light">Account</span>
           </Link>
         </div>
       </nav>
