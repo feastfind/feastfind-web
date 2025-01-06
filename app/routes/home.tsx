@@ -1,7 +1,21 @@
+import type { paths } from '@/schema';
 import type { Route } from './+types/home';
+
 import { Input } from '@/components/ui/input';
-import { MapPin, Banknote, House, MapPinned, Heart, User } from 'lucide-react';
-import { Link, useNavigate } from 'react-router';
+import { Banknote } from 'lucide-react';
+import { Link } from 'react-router';
+import { ENV } from '@/env';
+import { formatRupiah } from '@/lib/utils';
+
+type PlacesResponse =
+  paths['/places']['get']['responses'][200]['content']['application/json'];
+
+export async function clientLoader() {
+  const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/places`);
+  const placesData: PlacesResponse = await response.json();
+
+  return { placesData };
+}
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -10,39 +24,27 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
-  const navigate = useNavigate();
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const { placesData } = loaderData;
   return (
     <>
-      <div className="bg-red-500 p-4 flex justify-start items-center gap-4">
-        <div className="border border-white rounded p-2">
-          <MapPin color="white" />
-        </div>
-        <div className="flex flex-col text-white font-medium">
-          <h2 className="text-xs">Current location</h2>
-          <p className="text-sm max-w-[300px] truncate">
-            Suite 846 87042 Schroeder Spring, Warrenside, OH 59614
-          </p>
-        </div>
-      </div>
-
       <div className="flex flex-col gap-4 p-5">
-        <div className="text-3xl font-medium">What would you like today ?</div>
-        <div className="text-sm font-light">3478 restaurant available</div>
+        <div className="text-2xl font-medium">What would you like today ?</div>
+        <div className="text-sm font-light">{`${placesData?.count} restaurant available`}</div>
         <Input
-          type="email"
+          type="text"
           placeholder="Search restaurant, menu, food etc."
-          className="rounded-full"
+          className="rounded-full placeholder:text-xs"
         />
       </div>
 
       <div className="flex flex-col gap-4 p-5">
         <h2 className="text-lg font-medium">Cuisines</h2>
-        <div className="flex justify-around items-center">
+        <div className="grid grid-cols-4 gap-2">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="flex flex-col gap-2">
-              <div className="w-24 h-24 bg-slate-300 rounded-full" />
-              <div className="text-center">Category</div>
+            <div key={i} className="flex flex-col items-center gap-2">
+              <div className="w-16 h-16 bg-gray-200 rounded-full" />
+              <div className="text-xs text-center">Category</div>
             </div>
           ))}
         </div>
@@ -51,16 +53,25 @@ export default function Home() {
       <div className="flex flex-col gap-4 p-5">
         <h2>All places</h2>
 
-        <ul className="grid grid-cols-2 gap-4">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <Link key={i} to={`/places/${crypto.randomUUID()}`}>
+        <ul className="grid gap-4">
+          {placesData?.places?.map((place) => (
+            <Link key={place.id} to={`/places/${place.id}`}>
               <li className="h-56 rounded-2xl border border-gray-300">
-                <div className="w-full h-3/4 bg-slate-300 rounded-2xl" />
+                <div className="w-full h-3/4 bg-gray-200 rounded-2xl overflow-hidden">
+                  <img
+                    alt="banner"
+                    src="/tacos.jpg"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
                 <div className="text-sm p-2">
-                  <div className="font-medium">Special Name</div>
-                  <div className="flex items-center gap-2 font-light text-gray-500">
+                  <div className="font-medium">{place.name}</div>
+                  <div className="flex items-center gap-2 font-light">
                     <Banknote />
-                    <div>Rp 843.123,67</div>
+                    <div>{`${formatRupiah(
+                      parseInt(place.priceMin)
+                    )} - ${formatRupiah(parseInt(place.priceMax))}`}</div>
                   </div>
                 </div>
               </li>
