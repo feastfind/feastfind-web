@@ -1,5 +1,6 @@
 import type { paths } from '@/schema';
 import { ENV } from '@/env';
+import { z } from 'zod';
 
 type User =
   paths['/users']['get']['responses'][200]['content']['application/json'];
@@ -10,15 +11,17 @@ type UserLoginResponse =
 type UserRegisterResponse =
   paths['/auth/register']['post']['responses'][201]['content']['application/json'];
 
-type UserRegisterPayload = {
-  name: string;
-  username: string;
-  email: string;
-  avatarURL: string | null;
-  password: string;
-};
+export const UserRegisterPayloadSchema = z.object({
+  name: z.string({ message: 'Name is required' }),
+  username: z.string({ message: 'Username is required' }),
+  email: z.string({ message: 'Email is required' }),
+  password: z.string({ message: 'Password is required' }), // TODO: Password requirements
+  avatarURL: z.string().optional(),
+});
 
-type UserLoginPayload = {
+export type UserRegisterPayload = z.infer<typeof UserRegisterPayloadSchema>;
+
+export type UserLoginPayload = {
   identifier: string;
   password: string;
 };

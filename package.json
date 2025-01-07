@@ -11,6 +11,8 @@
     "generate:prod": "openapi-typescript https://api.feastfind.com/openapi.json -o ./app/schema.d.ts"
   },
   "dependencies": {
+    "@conform-to/react": "^1.2.2",
+    "@conform-to/zod": "^1.2.2",
     "@radix-ui/react-label": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.1",
     "@react-router/node": "^7.0.2",

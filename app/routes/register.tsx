@@ -1,53 +1,59 @@
+import { Form, Link, redirect } from 'react-router';
+import { parseWithZod } from '@conform-to/zod';
+
 import type { Route } from './+types/home';
-import type { SubmitHandler } from 'react-hook-form';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { auth } from '@/lib/auth';
-
-type RegisterInputs = {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  cpassword: string;
-};
+import { auth, UserRegisterPayloadSchema } from '@/lib/auth';
+import { useForm } from '@conform-to/react';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'FeastFind' },
-    { name: 'description', content: 'Find the best feast!' },
+    { title: 'Register New Account - FeastFind' },
+    {
+      name: 'description',
+      content: 'Register new account to find the best feast!',
+    },
   ];
 }
 
-export default function register() {
-  const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<RegisterInputs>();
-  const onSubmit: SubmitHandler<RegisterInputs> = async (data) => {
-    const payload = {
-      avatarURL: '',
-      ...data,
-    };
+export async function clientAction({ request }: Route.ClientActionArgs) {
+  const formData = await request.formData();
+  const submission = parseWithZod(formData, {
+    schema: UserRegisterPayloadSchema,
+  });
 
-    const response = await auth.register(payload);
-    if (!response) {
-      alert('Something went wrong, please try again later');
-      return;
-    }
+  if (submission.status !== 'success') return submission.reply();
 
-    navigate('/login', { state: { registered: true } });
+  const response = await auth.register(submission.value);
+  if (!response) {
+    console.error(response);
     return;
-  };
+  }
+
+  return redirect('/login');
+}
+
+export default function register({ actionData }: Route.ComponentProps) {
+  const [form, fields] = useForm({
+    shouldValidate: 'onBlur',
+    lastResult: actionData,
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: UserRegisterPayloadSchema });
+    },
+  });
 
   return (
     <div className="max-w-[500px] relative min-h-screen border-l border-r mx-auto overflow-auto no-scrollbar">
       <div className="h-screen flex flex-1 items-center justify-center">
         <div className="w-full max-w-xs">
-          <form
+          <Form
+            method="post"
+            id={form.id}
+            onSubmit={form.onSubmit}
             className="flex flex-col gap-6"
-            onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex flex-col items-center gap-2 text-center">
               <h1 className="text-2xl font-bold">Create Account</h1>
@@ -60,37 +66,39 @@ export default function register() {
                 <Label htmlFor="name">Name</Label>
                 <Input
                   id="name"
+                  name="name"
                   type="text"
                   placeholder="John Doe"
-                  {...register('name', { required: true })}
                 />
+                <p>{fields.name.errors}</p>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="username">Username</Label>
                 <Input
                   id="username"
+                  name="username"
                   type="text"
-                  placeholder="john07"
-                  {...register('username', { required: true })}
+                  placeholder="johndoe"
                 />
+                <p>{fields.username.errors}</p>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
-                  placeholder="m@example.com"
-                  {...register('email', { required: true })}
+                  placeholder="email@example.com"
                 />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
+                  name="password"
                   type="password"
                   placeholder="*********"
                   autoComplete="off"
-                  {...register('password', { required: true })}
                 />
               </div>
 
@@ -98,14 +106,15 @@ export default function register() {
                 <Label htmlFor="cpassword">Confirm Password</Label>
                 <Input
                   id="cpassword"
+                  name="cpassword"
                   type="password"
                   placeholder="*********"
                   autoComplete="off"
-                  {...register('cpassword', { required: true })}
                 />
               </div>
+              <input type="hidden" name="avatarURL" />
               <Button type="submit" className="w-full">
-                Login
+                Register
               </Button>
             </div>
             <div className="text-center text-sm">
@@ -117,7 +126,7 @@ export default function register() {
                 Sign in
               </Link>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>

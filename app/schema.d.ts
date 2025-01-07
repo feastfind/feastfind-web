@@ -466,7 +466,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             count: number;
-                            place: {
+                            places: {
                                 /** Format: cuid */
                                 id: string;
                                 slug: string;
@@ -856,16 +856,19 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** Format: cuid */
-                            id: string;
-                            slug: string;
-                            name: string;
-                            price: unknown;
-                            description: string | null;
-                            placeId: string;
-                            userId: string;
-                            createdAt: string | null;
-                            updatedAt: string | null;
+                            message: string;
+                            menuItem: {
+                                /** Format: cuid */
+                                id: string;
+                                slug: string;
+                                name: string;
+                                price: unknown;
+                                description: string | null;
+                                placeId: string;
+                                userId: string;
+                                createdAt: string | null;
+                                updatedAt: string | null;
+                            };
                         };
                     };
                 };
@@ -962,10 +965,136 @@ export interface paths {
         };
         put?: never;
         post?: never;
-        delete?: never;
+        /** @description Delete a menu item. */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    slug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Menu item deleted successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                            menuItem: {
+                                /** Format: cuid */
+                                id: string;
+                                slug: string;
+                                name: string;
+                                price: unknown;
+                                description: string | null;
+                                placeId: string;
+                                userId: string;
+                                createdAt: string | null;
+                                updatedAt: string | null;
+                            };
+                        };
+                    };
+                };
+                /** @description Validation error */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Menu item not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to delete menu item */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
         options?: never;
         head?: never;
-        patch?: never;
+        /** @description Update a menu item. */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    slug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        name?: string;
+                        price?: number;
+                        description?: string | null;
+                        images?: {
+                            url: string;
+                        }[];
+                        placeSlug?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Menu item updated successfully */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                            menuItem: {
+                                /** Format: cuid */
+                                id: string;
+                                slug: string;
+                                name: string;
+                                price: unknown;
+                                description: string | null;
+                                placeId: string;
+                                userId: string;
+                                createdAt: string | null;
+                                updatedAt: string | null;
+                            };
+                        };
+                    };
+                };
+                /** @description Validation error */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Menu item not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to update menu item */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
         trace?: never;
     };
     "/menu-items/{slug}/reviews": {

@@ -10,13 +10,6 @@ import { formatRupiah } from '@/lib/utils';
 type PlacesResponse =
   paths['/places']['get']['responses'][200]['content']['application/json'];
 
-export async function clientLoader() {
-  const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/places`);
-  const placesData: PlacesResponse = await response.json();
-
-  return { placesData };
-}
-
 export function meta({}: Route.MetaArgs) {
   return [
     { title: 'FeastFind' },
@@ -24,13 +17,21 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+export async function clientLoader() {
+  const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/places`);
+  const placesJSON: PlacesResponse = await response.json();
+
+  return { placesJSON: placesJSON };
+}
+
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const { placesData } = loaderData;
+  const { placesJSON } = loaderData;
+
   return (
     <>
       <div className="flex flex-col gap-4 p-5">
         <div className="text-2xl font-medium">What would you like today ?</div>
-        <div className="text-sm font-light">{`${placesData?.count} restaurant available`}</div>
+        <div className="text-sm font-light">{`${placesJSON.count} restaurant available`}</div>
         <Input
           type="text"
           placeholder="Search restaurant, menu, food etc."
@@ -54,7 +55,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <h2>All places</h2>
 
         <ul className="grid gap-4">
-          {placesData?.places?.map((place) => (
+          {placesJSON.places.map((place) => (
             <Link key={place.id} to={`/places/${place.id}`}>
               <li className="h-56 rounded-2xl border border-gray-300">
                 <div className="w-full h-3/4 bg-gray-200 rounded-2xl overflow-hidden">
