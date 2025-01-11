@@ -1,15 +1,11 @@
 import type { Route } from './+types/home';
-import { useForm, type SubmitHandler } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Link, useLocation, redirect, useNavigate } from 'react-router';
-import { auth } from '@/lib/auth';
-
-type LoginInputs = {
-  identifier: string;
-  password: string;
-};
+import { Link, Form, redirect } from 'react-router';
+import { auth, UserLoginrPayloadSchema } from '@/lib/auth';
+import { parseWithZod } from '@conform-to/zod';
+import { useForm } from '@conform-to/react';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -18,33 +14,48 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function login() {
-  const navigate = useNavigate();
-  const { state } = useLocation();
-  const { register, handleSubmit } = useForm<LoginInputs>();
-  const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
-    const payload = {
-      ...data,
-    };
-    const response = await auth.login(payload);
-    if (!response) {
-      alert('Something went wrong, please try again later');
-      return;
-    }
-    navigate('/', { replace: true });
-  };
+export async function clientLoader() {
+  const user = await auth.checkUser();
+  if (user) return redirect('/');
+  return null;
+}
+
+export async function clientAction({ request }: Route.ClientActionArgs) {
+  let formData = await request.formData();
+  const submission = parseWithZod(formData, {
+    schema: UserLoginrPayloadSchema,
+  });
+
+  if (submission.status !== 'success') return submission.reply();
+
+  const response = await auth.login(submission.value);
+  if (!response) {
+    console.error(response);
+    return;
+  }
+
+  alert('login success');
+  return redirect('/');
+}
+
+export default function login({ actionData }: Route.ComponentProps) {
+  const [form, fields] = useForm({
+    shouldValidate: 'onBlur',
+    lastResult: actionData,
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: UserLoginrPayloadSchema });
+    },
+  });
+
   return (
     <div className="max-w-[500px] relative min-h-screen border-l border-r mx-auto overflow-auto no-scrollbar">
-      {state?.registered && (
-        <div className="p-2 rounded bg-emerald-100 text-center">
-          User successfuly registered!
-        </div>
-      )}
       <div className="h-screen flex flex-1 items-center justify-center">
         <div className="w-full max-w-xs">
-          <form
+          <Form
+            method="post"
+            id={form.id}
+            onSubmit={form.onSubmit}
             className="flex flex-col gap-6"
-            onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex flex-col items-center gap-2 text-center">
               <h1 className="text-2xl font-bold">Login to your account</h1>
@@ -60,8 +71,11 @@ export default function login() {
                   type="text"
                   placeholder="m@example.com / johndoe07"
                   autoComplete="off"
-                  {...register('identifier', { required: true })}
+                  name={fields.identifier.name}
                 />
+                <span className="text-sm text-red-500">
+                  {fields.identifier.errors}
+                </span>
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
@@ -77,8 +91,12 @@ export default function login() {
                   id="password"
                   type="password"
                   autoComplete="off"
-                  {...register('password', { required: true })}
+                  placeholder="*********"
+                  name={fields.password.name}
                 />
+                <span className="text-sm text-red-500">
+                  {fields.password.errors}
+                </span>
               </div>
               <Button type="submit" className="w-full">
                 Login
@@ -93,7 +111,7 @@ export default function login() {
                 Sign up
               </Link>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>

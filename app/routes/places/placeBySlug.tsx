@@ -28,10 +28,10 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function placesById({ loaderData }: Route.ComponentProps) {
+export default function PlacesByIdRoutes({ loaderData }: Route.ComponentProps) {
   const { placeData } = loaderData;
   return (
-    <main className="flex flex-col gap-4 p-5">
+    <main className="flex flex-col gap-4 p-5 mb-20">
       <div className="w-full relative h-52 bg-gray-200 rounded-2xl overflow-hidden">
         <img
           alt="place"
@@ -62,6 +62,33 @@ export default function placesById({ loaderData }: Route.ComponentProps) {
       )}
 
       <section className="grid gap-4">
+        {placeData.menuItems.map((item) => (
+          <div
+            key={item.id}
+            className="flex border rounded-2xl overflow-hidden h-32"
+          >
+            <div className="w-32 h-full bg-gray-50">
+              <img
+                alt="menu item"
+                src={item.images[0]}
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            <div className="flex-1 p-4">
+              <Label className="text-lg">{item.name}</Label>
+              <p>{item.slug}</p>
+              <div className="flex items-center gap-2 font-light">
+                <Banknote />
+                <Label>{`${formatRupiah(parseInt(item.price))}`}</Label>
+              </div>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* TODO Comment Section
+      <section className="grid gap-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="flex flex-col gap-4">
             <div className="flex gap-5 items-center">
@@ -83,7 +110,7 @@ export default function placesById({ loaderData }: Route.ComponentProps) {
             </p>
           </div>
         ))}
-      </section>
+      </section> */}
     </main>
   );
 }

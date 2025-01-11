@@ -26,12 +26,11 @@ export async function clientLoader() {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const { placesJSON } = loaderData;
-
   return (
     <>
       <div className="flex flex-col gap-4 p-5">
         <div className="text-2xl font-medium">What would you like today ?</div>
-        <div className="text-sm font-light">{`${placesJSON.count} restaurant available`}</div>
+        <div className="text-sm">{`${placesJSON.length} restaurant available`}</div>
         <Input
           type="text"
           placeholder="Search restaurant, menu, food etc."
@@ -39,6 +38,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         />
       </div>
 
+      {/* TODO Category
       <div className="flex flex-col gap-4 p-5">
         <h2 className="text-lg font-medium">Cuisines</h2>
         <div className="grid grid-cols-4 gap-2">
@@ -49,26 +49,27 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             </div>
           ))}
         </div>
-      </div>
+      </div> 
+      */}
 
       <div className="flex flex-col gap-4 p-5">
         <h2>All places</h2>
 
         <ul className="grid gap-4">
-          {placesJSON.places.map((place) => (
-            <Link key={place.id} to={`/places/${place.id}`}>
+          {placesJSON.map((place) => (
+            <Link key={place.id} to={`/places/${place.slug}`}>
               <li className="h-56 rounded-2xl border border-gray-300">
                 <div className="w-full h-3/4 bg-gray-200 rounded-2xl overflow-hidden">
                   <img
                     alt="banner"
-                    src="/tacos.jpg"
+                    src={place.images[0]}
                     className="w-full h-full object-cover"
                   />
                 </div>
 
                 <div className="text-sm p-2">
                   <div className="font-medium">{place.name}</div>
-                  <div className="flex items-center gap-2 font-light">
+                  <div className="flex items-center gap-2">
                     <Banknote />
                     <div>{`${formatRupiah(
                       parseInt(place.priceMin)
