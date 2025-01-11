@@ -19,6 +19,12 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+export async function clientLoader() {
+  const user = await auth.checkUser();
+  if (user) return redirect('/');
+  return null;
+}
+
 export async function clientAction({ request }: Route.ClientActionArgs) {
   const formData = await request.formData();
   const submission = parseWithZod(formData, {
