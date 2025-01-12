@@ -1,4 +1,4 @@
-import type { Route } from './+types/favourite';
+import type { Route } from './+types/reviews';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -7,6 +7,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function FavouriteRoutes() {
-  return <h1>Favourite page Under construction.</h1>;
+export default function Route() {
+  return <h1>Reviews</h1>;
 }

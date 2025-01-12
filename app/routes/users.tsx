@@ -12,7 +12,7 @@ export async function clientLoader() {
   return { users };
 }
 
-export default function UsersRoute({ loaderData }: Route.ComponentProps) {
+export default function Route({ loaderData }: Route.ComponentProps) {
   const { users } = loaderData;
 
   return (

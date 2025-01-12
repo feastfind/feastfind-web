@@ -24,7 +24,7 @@ export async function clientLoader() {
   return { placesJSON: placesJSON };
 }
 
-export default function Home({ loaderData }: Route.ComponentProps) {
+export default function Route({ loaderData }: Route.ComponentProps) {
   const { placesJSON } = loaderData;
   return (
     <>

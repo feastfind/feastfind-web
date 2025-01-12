@@ -11,7 +11,7 @@ export default [
     route('/users', 'routes/users.tsx'),
     route('/places/:slug', 'routes/places/placeBySlug.tsx'),
     route('/explore', 'routes/explore.tsx'),
-    route('/favourite', 'routes/favourite.tsx'),
+    route('/reviews', 'routes/reviews.tsx'),
     route('/account', 'routes/account.tsx'),
   ]),
   route('/login', 'routes/login.tsx'),

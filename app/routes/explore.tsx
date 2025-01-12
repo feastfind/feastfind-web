@@ -7,6 +7,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function ExploreRoutes() {
-  return <h1>Explore page Under construction.</h1>;
+export default function Route() {
+  return <h1>Explore Maps</h1>;
 }

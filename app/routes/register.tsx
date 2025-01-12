@@ -42,7 +42,7 @@ export async function clientAction({ request }: Route.ClientActionArgs) {
   return redirect('/login');
 }
 
-export default function register({ actionData }: Route.ComponentProps) {
+export default function Route({ actionData }: Route.ComponentProps) {
   const [form, fields] = useForm({
     shouldValidate: 'onBlur',
     lastResult: actionData,

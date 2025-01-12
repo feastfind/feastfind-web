@@ -5,7 +5,7 @@ import { ENV } from '@/env';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Banknote, Star, EllipsisVertical } from 'lucide-react';
+import { Banknote, Star } from 'lucide-react';
 import { formatRupiah } from '@/lib/utils';
 import { auth } from '@/lib/auth';
 
@@ -28,14 +28,14 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function PlacesByIdRoutes({ loaderData }: Route.ComponentProps) {
+export default function Route({ loaderData }: Route.ComponentProps) {
   const { placeData } = loaderData;
   return (
     <main className="flex flex-col gap-4 p-5 mb-20">
       <div className="w-full relative h-52 bg-gray-200 rounded-2xl overflow-hidden">
         <img
           alt="place"
-          src="/tacos.jpg"
+          src={placeData.menuItems[0].images[0]}
           className="w-full h-full object-cover"
         />
         <div className="absolute top-4 left-4 flex items-center justify-center gap-2 p-2 rounded bg-white text-yellow-500">

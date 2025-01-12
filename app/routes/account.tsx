@@ -21,7 +21,7 @@ export async function clientAction() {
   return redirect('/login');
 }
 
-export default function AccountRoutes({ loaderData }: Route.ComponentProps) {
+export default function Route({ loaderData }: Route.ComponentProps) {
   const { user } = loaderData;
 
   return (

@@ -1,5 +1,5 @@
 import { auth } from '@/lib/auth';
-import { House, MapPin, MapPinned, Heart, UserIcon } from 'lucide-react';
+import { House, MapPin, MapPinned, StarIcon, UserIcon } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router';
 import type { Route } from './+types/app';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -59,15 +59,15 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
           </NavLink>
 
           <NavLink
-            to="/favourite"
+            to="/reviews"
             className={({ isActive }) => {
               return `w-16 flex flex-col gap-0.5 justify-center items-center hover:bg-gray-100${
                 isActive ? ' text-red-500' : ''
               }`;
             }}
           >
-            <Heart />
-            <span className="text-xs font-light">Favourite</span>
+            <StarIcon />
+            <span className="text-xs font-light">Reviews</span>
           </NavLink>
 
           <NavLink
