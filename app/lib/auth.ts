@@ -5,7 +5,7 @@ import { Cookies as ReactCookie } from 'react-cookie';
 import { dueDate } from './utils';
 
 export type User =
-  paths['/users']['get']['responses'][200]['content']['application/json'];
+  paths['/auth/me']['get']['responses'][200]['content']['application/json']['user'];
 
 type UserLoginResponse =
   paths['/auth/login']['post']['responses'][200]['content']['application/json'];
@@ -35,7 +35,7 @@ export type Auth = {
   getToken: () => void;
   register: (userRegister: UserRegisterPayload) => Promise<boolean>;
   login: (userLogin: UserLoginPayload) => Promise<boolean>;
-  checkUser(): Promise<User | undefined>;
+  getUser(): Promise<User | null>;
   logout(): void;
 };
 
@@ -78,22 +78,24 @@ export const auth: Auth = {
       return false;
     }
   },
-  checkUser: async () => {
+  getUser: async () => {
     const token = accessToken.get();
     if (token) {
       try {
         const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const user: User = await response.json();
-
+        const responseJSON = await response.json();
+        const user: User = responseJSON.user;
         auth.isAuthenticated = true;
         return user;
       } catch (error) {
         accessToken.remove();
         auth.isAuthenticated = false;
+        return null;
       }
     }
+    return null;
   },
   logout: () => {
     accessToken.remove();

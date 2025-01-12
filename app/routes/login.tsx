@@ -15,7 +15,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function clientLoader() {
-  const user = await auth.checkUser();
+  const user = await auth.getUser();
   if (user) return redirect('/');
   return null;
 }
@@ -34,7 +34,6 @@ export async function clientAction({ request }: Route.ClientActionArgs) {
     return;
   }
 
-  alert('login success');
   return redirect('/');
 }
 

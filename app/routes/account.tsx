@@ -2,6 +2,7 @@ import type { Route } from './+types/account';
 import { auth } from '@/lib/auth';
 import { Form, Link, redirect, useLoaderData } from 'react-router';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,7 +12,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function clientLoader() {
-  const user = await auth.checkUser();
+  const user = await auth.getUser();
   return { user };
 }
 
@@ -20,24 +21,22 @@ export async function clientAction() {
   return redirect('/login');
 }
 
-export default function AccountRoutes() {
-  const data = useLoaderData() as Awaited<ReturnType<typeof clientLoader>>;
+export default function AccountRoutes({ loaderData }: Route.ComponentProps) {
+  const { user } = loaderData;
+
   return (
     <main className="p-3">
-      {auth.isAuthenticated ? (
-        <div className="flex gap-4 border rounded-2xl overflow-auto">
-          <div className="rounded-full size-24 overflow-hidden">
-            <img
-              alt="avatar"
-              src={data?.user?.user?.avatarURL}
-              className="w-full h-full object-cover"
-            />
+      {auth.isAuthenticated && user ? (
+        <div className="flex p-4 gap-4 border rounded-2xl overflow-auto items-center">
+          <div>
+            <Avatar className="size-20">
+              <AvatarImage src={String(user.avatarURL)} alt={user.username} />
+              <AvatarFallback>{user.name}</AvatarFallback>
+            </Avatar>
           </div>
 
           <div className="p-2 flex flex-col gap-4">
-            <label className="text-xl">
-              Hello, {data?.user?.user?.username}
-            </label>
+            <label className="text-xl">Hello, {user.username}</label>
 
             <Form method="post">
               <Button type="submit">Logout</Button>

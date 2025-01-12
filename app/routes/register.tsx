@@ -20,7 +20,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function clientLoader() {
-  const user = await auth.checkUser();
+  const user = await auth.getUser();
   if (user) return redirect('/');
   return null;
 }
