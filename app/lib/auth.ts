@@ -80,22 +80,20 @@ export const auth: Auth = {
   },
   getUser: async () => {
     const token = accessToken.get();
-    if (token) {
-      try {
-        const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/auth/me`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const responseJSON = await response.json();
-        const user: User = responseJSON.user;
-        auth.isAuthenticated = true;
-        return user;
-      } catch (error) {
-        accessToken.remove();
-        auth.isAuthenticated = false;
-        return null;
-      }
+    if (!token) return null;
+    try {
+      const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/auth/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const responseJSON = await response.json();
+      const user: User = responseJSON.user;
+      auth.isAuthenticated = true;
+      return user;
+    } catch (error) {
+      accessToken.remove();
+      auth.isAuthenticated = false;
+      return null;
     }
-    return null;
   },
   logout: () => {
     accessToken.remove();
