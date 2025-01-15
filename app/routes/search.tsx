@@ -16,7 +16,17 @@ export async function clientLoader({ request }: Route.ClientLoaderArgs) {
   const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/search?q=${q}`);
   const searchJSON: SearchResponse = await response.json();
 
-  return { searchJSON: searchJSON };
+  return { q, searchJSON: searchJSON };
+}
+
+export function meta({ data }: Route.MetaArgs) {
+  return [
+    { title: `Search: ${data.q} - FeastFind` },
+    {
+      name: 'description',
+      content: 'Search foods, menu items, places, restaurants, etc.',
+    },
+  ];
 }
 
 export default function Route({ loaderData }: Route.ComponentProps) {
@@ -36,19 +46,19 @@ export default function Route({ loaderData }: Route.ComponentProps) {
 
       <div className="flex flex-col gap-4 px-5 mb-8">
         <h2>Menus</h2>
-        {searchJSON?.menuItems?.length === 0 && (
+        {searchJSON.menuItems.length === 0 && (
           <p className="text-sm">No menu items available.</p>
         )}
 
         <ul className="grid gap-4">
-          {searchJSON?.menuItems?.map((item) => (
+          {searchJSON.menuItems.map((item) => (
             <li key={item.id}>
               <Link to={`/${item.place.slug}/${item.slug}`} className="block">
                 <div className="flex border rounded-2xl overflow-hidden h-32">
                   <div className="w-32 h-full bg-gray-50">
                     <img
                       alt="menu item"
-                      src={item?.images?.[0] ?? null}
+                      src={item.images[0]}
                       className="w-full h-full object-contain"
                     />
                   </div>
