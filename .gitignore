@@ -6,3 +6,4 @@
 /build/
 
 .env
+app/schema.d.ts
