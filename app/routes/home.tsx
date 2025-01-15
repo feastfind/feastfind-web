@@ -3,7 +3,7 @@ import type { Route } from './+types/home';
 
 import { Input } from '@/components/ui/input';
 import { Banknote } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link, Form } from 'react-router';
 import { ENV } from '@/env';
 import { formatRupiah } from '@/lib/utils';
 
@@ -31,35 +31,24 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       <div className="flex flex-col gap-4 p-5">
         <div className="text-2xl font-medium">What would you like today ?</div>
         <div className="text-sm">{`${placesJSON.length} restaurant available`}</div>
-        <Input
-          type="text"
-          placeholder="Search restaurant, menu, food etc."
-          className="rounded-full placeholder:text-xs"
-        />
+        <Form action="/search">
+          <Input
+            type="text"
+            placeholder="Search restaurant, menu, food etc."
+            className="rounded-full placeholder:text-xs"
+            name="q"
+          />
+        </Form>
       </div>
 
-      {/* TODO Category
-      <div className="flex flex-col gap-4 p-5">
-        <h2 className="text-lg font-medium">Cuisines</h2>
-        <div className="grid grid-cols-4 gap-2">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="flex flex-col items-center gap-2">
-              <div className="w-16 h-16 bg-gray-200 rounded-full" />
-              <div className="text-xs text-center">Category</div>
-            </div>
-          ))}
-        </div>
-      </div> 
-      */}
-
-      <div className="flex flex-col gap-4 p-5">
+      <div className="flex flex-col gap-4 px-5 mb-4">
         <h2>All places</h2>
 
         <ul className="grid gap-4">
           {placesJSON.map((place) => (
             <Link key={place.id} to={`/${place.slug}`}>
               <li className="h-56 rounded-2xl border border-gray-300">
-                <div className="w-full h-3/4 bg-gray-200 rounded-2xl overflow-hidden">
+                <div className="w-full h-2/3 bg-gray-200 rounded-2xl overflow-hidden">
                   <img
                     alt="banner"
                     src={place.images[0]}
@@ -67,13 +56,16 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                   />
                 </div>
 
-                <div className="text-sm p-2">
+                <div className="flex flex-col text-sm p-2">
                   <div className="font-medium">{place.name}</div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 text-emerald-800">
                     <Banknote />
                     <div>{`${formatRupiah(
                       parseInt(place.priceMin)
                     )} - ${formatRupiah(parseInt(place.priceMax))}`}</div>
+                  </div>
+                  <div className="w-[280px] md:w-[350px] text-xs truncate">
+                    {place.address}
                   </div>
                 </div>
               </li>

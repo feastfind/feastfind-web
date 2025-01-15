@@ -15,6 +15,7 @@ export default [
     route('/explore', 'routes/explore.tsx'),
     route('/reviews', 'routes/reviews.tsx'),
     route('/account', 'routes/account.tsx'),
+    route('/search', 'routes/search.tsx'),
   ]),
   route('/login', 'routes/login.tsx'),
   route('/register', 'routes/register.tsx'),
