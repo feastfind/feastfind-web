@@ -18,7 +18,7 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'FeastFind' },
+    { title: 'Menu Item - FeastFind' },
     { name: 'description', content: 'Find the best feast!' },
   ];
 }

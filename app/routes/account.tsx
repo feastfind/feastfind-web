@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'FeastFind' },
+    { title: 'Account - FeastFind' },
     { name: 'description', content: 'Find the best feast!' },
   ];
 }

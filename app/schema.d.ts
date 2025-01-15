@@ -1421,7 +1421,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description Search places and menu items by keyword. */
+        /**
+         * Get searched places and menu items
+         * @description Search places and menu items by keyword.
+         */
         get: {
             parameters: {
                 query: {
@@ -1496,6 +1499,57 @@ export interface paths {
                     content?: never;
                 };
                 /** @description Failed to search */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get all reviews
+         * @description Get a list of reviews.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Reviews retrieved successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to search */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Failed to retrieve reviews */
                 500: {
                     headers: {
                         [name: string]: unknown;

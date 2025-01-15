@@ -35,6 +35,40 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       </div>
 
       <div className="flex flex-col gap-4 px-5 mb-8">
+        <h2>Menus</h2>
+        {searchJSON?.menuItems?.length === 0 && (
+          <p className="text-sm">No menu items available.</p>
+        )}
+
+        <ul className="grid gap-4">
+          {searchJSON?.menuItems?.map((item) => (
+            <li key={item.id}>
+              <Link to={`/${item.place.slug}/${item.slug}`} className="block">
+                <div className="flex border rounded-2xl overflow-hidden h-32">
+                  <div className="w-32 h-full bg-gray-50">
+                    <img
+                      alt="menu item"
+                      src={item?.images?.[0] ?? null}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+
+                  <div className="flex-1 p-4">
+                    <Label className="text-lg">{item.name}</Label>
+                    <p>{item.slug}</p>
+                    <div className="flex items-center gap-2 text-sm text-emerald-800">
+                      <Banknote />
+                      <div>{`${formatRupiah(parseInt(item.price))}`}</div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="flex flex-col gap-4 px-5 mb-8">
         <h2>Places</h2>
         {searchJSON?.places?.length === 0 && (
           <p className="text-sm">No places found.</p>
@@ -65,40 +99,6 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                 </div>
               </li>
             </Link>
-          ))}
-        </ul>
-      </div>
-
-      <div className="flex flex-col gap-4 px-5 mb-8">
-        <h2>Menus</h2>
-        {searchJSON?.menuItems?.length === 0 && (
-          <p className="text-sm">No menu items available.</p>
-        )}
-
-        <ul className="grid gap-4">
-          {searchJSON?.menuItems?.map((item) => (
-            <li key={item.id}>
-              <Link to={`${item.slug}`} className="block">
-                <div className="flex border rounded-2xl overflow-hidden h-32">
-                  <div className="w-32 h-full bg-gray-50">
-                    <img
-                      alt="menu item"
-                      src={item?.images?.[0] ?? null}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-
-                  <div className="flex-1 p-4">
-                    <Label className="text-lg">{item.name}</Label>
-                    <p>{item.slug}</p>
-                    <div className="flex items-center gap-2 text-sm text-emerald-800">
-                      <Banknote />
-                      <div>{`${formatRupiah(parseInt(item.price))}`}</div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </li>
           ))}
         </ul>
       </div>

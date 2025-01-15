@@ -9,7 +9,7 @@ import { useForm } from '@conform-to/react';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'FeastFind' },
+    { title: 'Login - FeastFind' },
     { name: 'description', content: 'Find the best feast!' },
   ];
 }

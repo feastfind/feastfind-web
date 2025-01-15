@@ -1,14 +1,15 @@
-import type { paths } from '@/schema';
+import { Link } from 'react-router';
 import type { Route } from './+types/placeSlug';
+import { Banknote } from 'lucide-react';
+import { StarFilledIcon } from '@radix-ui/react-icons';
 
+import type { paths } from '@/schema';
 import { ENV } from '@/env';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Banknote, Star } from 'lucide-react';
 import { formatRupiah } from '@/lib/utils';
 import { auth } from '@/lib/auth';
-import { Link } from 'react-router';
 
 type PlaceBySlugResponse =
   paths['/places/{slug}']['get']['responses'][200]['content']['application/json'];
@@ -24,7 +25,7 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'FeastFind' },
+    { title: 'Place - FeastFind' },
     { name: 'description', content: 'Find the best feast!' },
   ];
 }
@@ -39,9 +40,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           src={placeData.menuItems[0].images[0]}
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-4 left-4 flex items-center justify-center gap-2 p-2 rounded bg-white text-yellow-500">
-          <Star size={18} />
-          <Label>4.9</Label>
+        <div className="absolute top-4 left-4 flex items-center justify-center gap-1 p-2 rounded bg-white">
+          <StarFilledIcon className="size-5 text-yellow-500" />
+          <span>4.9</span>
         </div>
       </div>
       <div className="text-xl font-medium">{placeData.name}</div>

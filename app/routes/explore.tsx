@@ -2,7 +2,7 @@ import type { Route } from './+types/explore';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'FeastFind' },
+    { title: 'Explore - FeastFind' },
     { name: 'description', content: 'Find the best feast!' },
   ];
 }
