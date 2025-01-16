@@ -6,6 +6,7 @@ import { Banknote } from 'lucide-react';
 import { Link, Form } from 'react-router';
 import { ENV } from '@/env';
 import { formatRupiah } from '@/lib/utils';
+import { StarFilledIcon } from '@radix-ui/react-icons';
 
 type PlacesResponse =
   paths['/places']['get']['responses'][200]['content']['application/json'];
@@ -47,8 +48,8 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         <ul className="grid gap-4">
           {placesJSON.map((place) => (
             <Link key={place.id} to={`/${place.slug}`}>
-              <li className="h-56 rounded-2xl border border-gray-300">
-                <div className="w-full h-2/3 bg-gray-200 rounded-2xl overflow-hidden">
+              <li className="h-72 border-b border-gray-300 mb-3">
+                <div className="h-2/3 rounded-t-xl overflow-hidden">
                   <img
                     alt="banner"
                     src={place.images[0]}
@@ -56,16 +57,24 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                   />
                 </div>
 
-                <div className="flex flex-col text-sm p-2">
-                  <div className="font-medium">{place.name}</div>
-                  <div className="flex items-center gap-2 text-emerald-800">
-                    <Banknote />
-                    <div>{`${formatRupiah(
-                      parseInt(place.priceMin)
-                    )} - ${formatRupiah(parseInt(place.priceMax))}`}</div>
+                <div className="flex">
+                  <div className="text-sm w-5/6 p-3">
+                    <div className="text-lg font-bold text-red-800 hover:text-amber-600 transition-all">
+                      {place.name}
+                    </div>
+                    <div className="flex items-center gap-2 text-emerald-800">
+                      <Banknote />
+                      <div>{`${formatRupiah(
+                        parseInt(place.priceMin)
+                      )} - ${formatRupiah(parseInt(place.priceMax))}`}</div>
+                    </div>
+                    <div className="w-[280px] md:w-[350px] text-xs truncate">
+                      {place.address}
+                    </div>
                   </div>
-                  <div className="w-[280px] md:w-[350px] text-xs truncate">
-                    {place.address}
+                  <div className="w-1/6 flex items-center gap-1  justify-center">
+                    <StarFilledIcon className="size-8 p-1 bg-amber-400 rounded-full" />
+                    <span className="font-bold">{place.ratingScore}</span>
                   </div>
                 </div>
               </li>

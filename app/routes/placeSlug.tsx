@@ -79,8 +79,13 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                   </div>
 
                   <div className="flex-1 p-4">
-                    <Label className="text-lg">{item.name}</Label>
-                    <p>{item.slug}</p>
+                    <Label className="text-lg text-amber-800 hover:text-amber-600 cursor-pointer">
+                      {item.name}
+                    </Label>
+                    <div className="flex items-center gap-1 ">
+                      <StarFilledIcon className="text-amber-600" />
+                      {item.ratingScore}
+                    </div>
                     <div className="flex items-center gap-2 font-light">
                       <Banknote />
                       <Label>{`${formatRupiah(
