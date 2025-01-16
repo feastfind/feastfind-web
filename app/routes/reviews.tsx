@@ -25,7 +25,6 @@ type ReviewsResponse =
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/reviews`);
   const reviewsData: ReviewsResponse = await response.json();
-  console.log(response);
   return { reviewsData };
 }
 
@@ -38,6 +37,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Route({ loaderData }: Route.ComponentProps) {
   const { reviewsData } = loaderData;
+  console.log(reviewsData);
   return (
     <>
       <div className="flex flex-col gap-4 p-5">
@@ -50,7 +50,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
             {reviewsData.map((item) => (
               <li
                 key={item.id}
-                className="p-4 border border-gray-300 rounded-2xl mb-4"
+                className="p-4 border border-gray-300 rounded-2xl mb-4 h-auto"
               >
                 <div className="flex justify-between bg-slate-200 pt-2 pb-2 pl-2 pr-3 mb-3 rounded-lg">
                   <div className="flex">
@@ -71,7 +71,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                 </div>
                 <div className="flex gap-3">
                   <div className="w-1/5">
-                    <Link to={`/${item.menuItem}`}>
+                    <Link
+                      to={`/${item.menuItem.place.slug}/${item.menuItem.slug}`}
+                    >
                       <img
                         src={item.menuItem.images[0].url}
                         className="object-cover rounded-lg mb-2"
@@ -90,9 +92,15 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                     </div>
 
                     <hr className="mb-3" />
-                    <div className="flex items-center gap-2">
-                      <PinIcon className="p-1 bg-slate-200 rounded-full" />
-                      <span className="text-sm">Jambo Kupi</span>
+                    <div className="flex justify-end">
+                      <div className="flex gap-2">
+                        <PinIcon className="p-1 bg-slate-200 rounded-full" />
+                        <span className="text-sm text-amber-600 hover:text-amber-500 transition-all">
+                          <Link to={`/${item.menuItem.place.slug}`}>
+                            {item.menuItem.place.name}
+                          </Link>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
