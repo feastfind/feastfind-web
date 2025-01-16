@@ -29,8 +29,8 @@ export default function Route({ loaderData }: Route.ComponentProps) {
   return (
     <>
       <div className="flex flex-col gap-4 p-5">
-        <div className="text-2xl font-medium">What would you like today ?</div>
-        <div className="text-sm">{`${placesJSON.length} restaurant available`}</div>
+        <div className="text-2xl font-medium">What would you like today?</div>
+        <div className="text-sm">{`${placesJSON.length} places available`}</div>
         <Form action="/search">
           <Input
             type="text"
