@@ -7,6 +7,7 @@ import { Banknote } from 'lucide-react';
 import { formatRupiah } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
 import SearchForm from '@/components/shared/SearchForm';
+import { StarFilledIcon } from '@radix-ui/react-icons';
 
 type SearchResponse =
   paths['/search']['get']['responses'][200]['content']['application/json'];
@@ -39,7 +40,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       </div>
 
       <div className="flex flex-col gap-4 px-5 mb-8">
-        <h3 className="font-bold text-cyan-600 underline">Menus</h3>
+        <h3 className="font-bold text-cyan-600 underline text-2xl">Menus</h3>
         {searchJSON.menuItems.length === 0 && (
           <p className="text-sm">No menu items available.</p>
         )}
@@ -52,17 +53,24 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                   <div className="w-32 h-full bg-gray-50">
                     <img
                       alt="menu item"
-                      src={item.images[0]}
-                      className="w-full h-full object-contain"
+                      src={item.images[0].url}
+                      className="w-full h-full object-cover"
                     />
                   </div>
 
                   <div className="flex-1 p-4">
-                    <Label className="text-lg">{item.name}</Label>
-                    <p>{item.slug}</p>
+                    <Label className="text-lg text-amber-800 hover:text-amber-600 cursor-pointer">
+                      {item.name}
+                    </Label>
+                    <div className="flex items-center gap-1 ">
+                      <StarFilledIcon className="text-amber-600" />
+                      {item.ratingScore}
+                    </div>
                     <div className="flex items-center gap-2 text-sm text-emerald-800">
                       <Banknote />
-                      <div>{`${formatRupiah(parseInt(item.price))}`}</div>
+                      <div>{`${formatRupiah(
+                        parseInt(String(item.price))
+                      )}`}</div>
                     </div>
                   </div>
                 </div>
@@ -73,32 +81,42 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       </div>
 
       <div className="flex flex-col gap-4 px-5 mb-8">
-        <h3 className="font-bold text-cyan-600 underline">Places</h3>
+        <h3 className="font-bold text-cyan-600 underline text-2xl">Places</h3>
         {searchJSON?.places?.length === 0 && (
           <p className="text-sm">No places found.</p>
         )}
         <ul className="grid gap-4">
           {searchJSON?.places?.map((place) => (
             <Link key={place.id} to={`/${place.slug}`}>
-              <li className="h-56 rounded-2xl border border-gray-300">
-                <div className="w-full h-2/3 bg-gray-200 rounded-2xl overflow-hidden">
+              <li className="h-72 border-b border-gray-300 mb-3">
+                <div className="h-2/3 rounded-t-xl overflow-hidden">
                   <img
                     alt="banner"
-                    src={place?.images?.[0] ?? null}
+                    src={place.menuItems[0].images[0].url}
                     className="w-full h-full object-cover"
                   />
                 </div>
 
-                <div className="flex flex-col text-sm p-2">
-                  <div className="font-medium">{place.name}</div>
-                  <div className="flex items-center gap-2 text-emerald-800">
-                    <Banknote />
-                    <div>{`${formatRupiah(
-                      parseInt(place.priceMin)
-                    )} - ${formatRupiah(parseInt(place.priceMax))}`}</div>
+                <div className="flex">
+                  <div className="text-sm w-5/6 p-3">
+                    <div className="text-lg font-bold text-red-800 hover:text-amber-600 transition-all">
+                      {place.name}
+                    </div>
+                    <div className="flex items-center gap-2 text-emerald-800">
+                      <Banknote />
+                      <div>{`${formatRupiah(
+                        parseInt(String(place.priceMin))
+                      )} - ${formatRupiah(
+                        parseInt(String(place.priceMax))
+                      )}`}</div>
+                    </div>
+                    <div className="w-[280px] md:w-[350px] text-xs truncate">
+                      {place.address}
+                    </div>
                   </div>
-                  <div className="w-[280px] md:w-[350px] text-xs truncate">
-                    {place.address}
+                  <div className="w-1/6 flex items-center gap-1  justify-center">
+                    <StarFilledIcon className="size-8 p-1 bg-amber-400 rounded-full" />
+                    <span className="font-bold">{place.ratingScore}</span>
                   </div>
                 </div>
               </li>

@@ -45,7 +45,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           <span>{placeData.ratingScore}</span>
         </div>
       </div>
-      <div className="text-xl font-medium">{placeData.name}</div>
+      <div className="text-3xl font-medium">{placeData.name}</div>
 
       <div className="flex items-center gap-2 font-light">
         <Banknote />
@@ -64,7 +64,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       )}
 
       <section className="grid gap-4">
-        <h3 className="font-bold text-cyan-600 underline">Menus</h3>
+        <h3 className="font-bold text-2xl text-cyan-600 underline">Menus</h3>
         <ul>
           {placeData.menuItems.map((item) => (
             <li key={item.id} className="mb-4">
