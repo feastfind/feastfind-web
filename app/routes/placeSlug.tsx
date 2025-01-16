@@ -45,13 +45,13 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           <span>{placeData.ratingScore}</span>
         </div>
       </div>
-      <div className="text-xl font-medium">{placeData.name}</div>
+      <div className="text-3xl font-medium">{placeData.name}</div>
 
       <div className="flex items-center gap-2 font-light">
         <Banknote />
-        <Label>{`${formatRupiah(parseInt(placeData.priceMin))} - ${formatRupiah(
-          parseInt(placeData.priceMax)
-        )}`}</Label>
+        <Label>{`${formatRupiah(
+          parseInt(String(placeData.priceMin))
+        )} - ${formatRupiah(parseInt(String(placeData.priceMax)))}`}</Label>
       </div>
 
       <p>{placeData.description}</p>
@@ -64,7 +64,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       )}
 
       <section className="grid gap-4">
-        <h3 className="font-bold text-cyan-600 underline">Menus</h3>
+        <h3 className="font-bold text-2xl text-cyan-600 underline">Menus</h3>
         <ul>
           {placeData.menuItems.map((item) => (
             <li key={item.id} className="mb-4">
@@ -79,11 +79,18 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                   </div>
 
                   <div className="flex-1 p-4">
-                    <Label className="text-lg">{item.name}</Label>
-                    <p>{item.slug}</p>
+                    <Label className="text-lg text-amber-800 hover:text-amber-600 cursor-pointer">
+                      {item.name}
+                    </Label>
+                    <div className="flex items-center gap-1 ">
+                      <StarFilledIcon className="text-amber-600" />
+                      {item.ratingScore}
+                    </div>
                     <div className="flex items-center gap-2 font-light">
                       <Banknote />
-                      <Label>{`${formatRupiah(parseInt(item.price))}`}</Label>
+                      <Label>{`${formatRupiah(
+                        parseInt(String(item.price))
+                      )}`}</Label>
                     </div>
                   </div>
                 </div>

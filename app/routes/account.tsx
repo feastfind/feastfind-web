@@ -1,8 +1,15 @@
 import type { Route } from './+types/account';
 import { auth } from '@/lib/auth';
-import { Form, Link, redirect, useLoaderData } from 'react-router';
+import {
+  Form,
+  Link,
+  redirect,
+  useLoaderData,
+  useOutletContext,
+} from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import SearchForm from '@/components/shared/SearchForm';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -23,9 +30,11 @@ export async function clientAction() {
 
 export default function Route({ loaderData }: Route.ComponentProps) {
   const { user } = loaderData;
+  const searchFormStatus: boolean = useOutletContext();
 
   return (
     <main className="p-3">
+      {searchFormStatus && <SearchForm />}
       {auth.isAuthenticated && user ? (
         <div className="flex p-4 gap-4 border rounded-2xl overflow-auto items-center">
           <div>
@@ -44,7 +53,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       ) : (
-        <div className="p-3 bg-blue-200 rounded-md">
+        <div className="p-3 bg-blue-200 rounded-2xl mt-3">
           Please{' '}
           <Link to={'/login'} className="underline text-blue-500">
             Log in.
