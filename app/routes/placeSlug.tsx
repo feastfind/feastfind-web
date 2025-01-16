@@ -40,9 +40,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           src={placeData.menuItems[0].images[0]}
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-4 left-4 flex items-center justify-center gap-1 p-2 rounded bg-white">
+        <div className="absolute top-4 left-4 flex items-center justify-center gap-1 p-2 rounded-lg bg-white">
           <StarFilledIcon className="size-5 text-yellow-500" />
-          <span>4.9</span>
+          <span>{placeData.ratingScore}</span>
         </div>
       </div>
       <div className="text-xl font-medium">{placeData.name}</div>
@@ -64,16 +64,17 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       )}
 
       <section className="grid gap-4">
+        <h3 className="font-bold text-cyan-600 underline">Menus</h3>
         <ul>
           {placeData.menuItems.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} className="mb-4">
               <Link to={`${item.slug}`} className="block">
                 <div className="flex border rounded-2xl overflow-hidden h-32">
                   <div className="w-32 h-full bg-gray-50">
                     <img
                       alt="menu item"
                       src={item.images[0]}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-cover"
                     />
                   </div>
 

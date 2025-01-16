@@ -17,7 +17,9 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
     <div className="max-w-[500px] relative min-h-screen border-l border-r mx-auto overflow-auto no-scrollbar pb-16">
       <div className="w-full h-16 sticky top-0 border-b bg-red-700">
         <div className="h-full flex items-center gap-4 px-4">
-          <h1 className="text-2xl font-bold text-white">🍽️ FeastFind</h1>
+          <NavLink to={'/'}>
+            <h1 className="text-2xl font-bold text-white">🍽️ FeastFind</h1>
+          </NavLink>
         </div>
       </div>
 

@@ -8,5 +8,11 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Route() {
-  return <h1>Explore Maps</h1>;
+  return (
+    <>
+      <div className="flex flex-col gap-4 p-5">
+        <div className="text-2xl font-medium">Explore Places</div>
+      </div>
+    </>
+  );
 }
