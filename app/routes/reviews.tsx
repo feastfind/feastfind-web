@@ -17,7 +17,10 @@ import {
   TextQuoteIcon,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
-import { Link } from 'react-router';
+import { Form, Link, useOutletContext } from 'react-router';
+import { Input } from '@/components/ui/input';
+import SearchForm from '@/components/shared/SearchForm';
+import { useState } from 'react';
 
 type ReviewsResponse =
   paths['/reviews']['get']['responses'][200]['content']['application/json'];
@@ -37,10 +40,12 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Route({ loaderData }: Route.ComponentProps) {
   const { reviewsData } = loaderData;
-  console.log(reviewsData);
+  const searchFormStatus: boolean = useOutletContext();
+
   return (
     <>
       <div className="flex flex-col gap-4 p-5">
+        {searchFormStatus && <SearchForm />}
         <div className="text-2xl font-medium">All Reviews</div>
       </div>
 

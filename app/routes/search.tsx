@@ -6,6 +6,7 @@ import { Form, Link } from 'react-router';
 import { Banknote } from 'lucide-react';
 import { formatRupiah } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
+import SearchForm from '@/components/shared/SearchForm';
 
 type SearchResponse =
   paths['/search']['get']['responses'][200]['content']['application/json'];
@@ -34,18 +35,11 @@ export default function Route({ loaderData }: Route.ComponentProps) {
   return (
     <>
       <div className="flex flex-col gap-4 p-5">
-        <Form action="/search">
-          <Input
-            type="text"
-            placeholder="Search restaurant, menu, food etc."
-            className="rounded-full placeholder:text-xs"
-            name="q"
-          />
-        </Form>
+        <SearchForm />
       </div>
 
       <div className="flex flex-col gap-4 px-5 mb-8">
-        <h2>Menus</h2>
+        <h3 className="font-bold text-cyan-600 underline">Menus</h3>
         {searchJSON.menuItems.length === 0 && (
           <p className="text-sm">No menu items available.</p>
         )}
@@ -79,7 +73,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       </div>
 
       <div className="flex flex-col gap-4 px-5 mb-8">
-        <h2>Places</h2>
+        <h3 className="font-bold text-cyan-600 underline">Places</h3>
         {searchJSON?.places?.length === 0 && (
           <p className="text-sm">No places found.</p>
         )}

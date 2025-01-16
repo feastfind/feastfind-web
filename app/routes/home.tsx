@@ -35,7 +35,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           <Input
             type="text"
             placeholder="Search restaurant, menu, food etc."
-            className="rounded-full placeholder:text-xs"
+            className="rounded-2xl placeholder:text-xs border-gray-300"
             name="q"
           />
         </Form>

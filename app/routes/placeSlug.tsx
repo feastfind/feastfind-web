@@ -49,9 +49,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
 
       <div className="flex items-center gap-2 font-light">
         <Banknote />
-        <Label>{`${formatRupiah(parseInt(placeData.priceMin))} - ${formatRupiah(
-          parseInt(placeData.priceMax)
-        )}`}</Label>
+        <Label>{`${formatRupiah(
+          parseInt(String(placeData.priceMin))
+        )} - ${formatRupiah(parseInt(String(placeData.priceMax)))}`}</Label>
       </div>
 
       <p>{placeData.description}</p>
@@ -83,7 +83,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                     <p>{item.slug}</p>
                     <div className="flex items-center gap-2 font-light">
                       <Banknote />
-                      <Label>{`${formatRupiah(parseInt(item.price))}`}</Label>
+                      <Label>{`${formatRupiah(
+                        parseInt(String(item.price))
+                      )}`}</Label>
                     </div>
                   </div>
                 </div>
