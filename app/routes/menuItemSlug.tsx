@@ -74,6 +74,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         )}
 
         <h3 className="font-bold text-cyan-600 underline mb-3 mt-5">Reviews</h3>
+        {menuItem.reviews.length === 0 && (
+          <p className="text-sm">No reviews available.</p>
+        )}
         <section className="grid gap-4">
           <ul>
             {menuItem.reviews.map((item) => (
