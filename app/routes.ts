@@ -18,5 +18,6 @@ export default [
     route('/search', 'routes/search.tsx'),
     route('/login', 'routes/login.tsx'),
     route('/register', 'routes/register.tsx'),
+    route('/city/:citySlug', 'routes/citySlug.tsx'),
   ]),
 ] satisfies RouteConfig;

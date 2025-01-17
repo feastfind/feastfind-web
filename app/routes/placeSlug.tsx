@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import type { Route } from './+types/placeSlug';
-import { Banknote } from 'lucide-react';
+import { Banknote, MapPin } from 'lucide-react';
 import { StarFilledIcon } from '@radix-ui/react-icons';
 
 import type { paths } from '@/schema';
@@ -45,7 +45,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           <span>{placeData.ratingScore}</span>
         </div>
       </div>
-      <div className="text-3xl font-medium">{placeData.name}</div>
+      <div className="text-3xl font-bold">{placeData.name}</div>
 
       <div className="flex items-center gap-2 font-light">
         <Banknote />
@@ -55,6 +55,24 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       </div>
 
       <p>{placeData.description}</p>
+
+      <div className="bg-slate-100 p-4 rounded-lg mt-4">
+        <div className="flex gap-4 justify-center">
+          <div className="flex gap-1 border-r border-slate-400 pr-4 content-center">
+            <Link
+              to={`/city/${placeData.city.slug}`}
+              className=" items-center flex flex-col text-cyan-700 hover:text-cyan-500 transition-all"
+            >
+              <MapPin /> {placeData.city.name}
+            </Link>
+          </div>
+          <div className="w-full gap-3">
+            <p className="text-sm">{placeData.address}</p>
+          </div>
+        </div>
+        <hr className="mt-2 mb-2 border-slate-400" />
+        <div>MAPS here</div>
+      </div>
 
       <section className="grid gap-4">
         <h3 className="font-bold text-2xl text-cyan-600 underline">Menus</h3>
@@ -72,7 +90,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                   </div>
 
                   <div className="flex-1 p-4">
-                    <Label className="text-lg text-amber-800 hover:text-amber-600 cursor-pointer">
+                    <Label className="text-lg text-amber-800 hover:text-amber-600 cursor-pointer font-bold">
                       {item.name}
                     </Label>
                     <div className="flex items-center gap-1 ">

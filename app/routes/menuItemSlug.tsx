@@ -39,9 +39,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
   return (
     <div className="flex flex-col gap-4 p-5 mb-20">
       {searchFormStatus && <SearchForm />}
-      <div className="text-2xl font-medium">{menuItem.name}</div>
+      <div className="text-2xl font-bold">{menuItem.name}</div>
       <img src={menuItem.images[0].url} className="w-full h-80 rounded-2xl" />
-      <div className="flex items-center gap-2 text-slate-400">
+      <div className="flex items-center gap-1 text-slate-400">
         Rating: <StarFilledIcon className="size-5 text-amber-600" />
         <p>{menuItem.ratingScore}</p>
       </div>
