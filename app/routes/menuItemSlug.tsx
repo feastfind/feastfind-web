@@ -3,11 +3,15 @@ import type { Route } from './+types/menuItemSlug';
 
 import { ENV } from '@/env';
 import { Debug } from '@/components/ui/debug';
-import { StarFilledIcon } from '@radix-ui/react-icons';
+import { StarFilledIcon, StarIcon } from '@radix-ui/react-icons';
 import { MessageSquareQuoteIcon, PinIcon } from 'lucide-react';
 import { Link, useOutletContext } from 'react-router';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import SearchForm from '@/components/shared/SearchForm';
+import { auth } from '@/lib/auth';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 
 type MenuItemSlugResponse =
   paths['/menu-items/{slug}']['get']['responses'][200]['content']['application/json'];
@@ -45,8 +49,29 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         Place: <Link to={`/${menuItem.place.slug}`}>{menuItem.place.name}</Link>
       </p>
       <p>{menuItem.description}</p>
-      <h3 className="font-bold text-cyan-600 underline">Reviews</h3>
+      <h3 className="font-bold text-cyan-600 underline">What do you think?</h3>
       <div>
+        {auth?.isAuthenticated && (
+          <div className="bg-slate-200 pl-4 pr-4 pt-5 pb-5 rounded-lg">
+            <div className="flex items-center gap-1 mb-3">
+              Rating :
+              <StarIcon />
+              <StarIcon />
+              <StarIcon />
+              <StarIcon />
+              <StarIcon />
+            </div>
+            <Textarea
+              placeholder="What do you think about this food ?"
+              className="mb-2"
+            />
+            <Button className="max-w-40 self-center mt-3" disabled>
+              Write Review
+            </Button>
+          </div>
+        )}
+
+        <h3 className="font-bold text-cyan-600 underline mb-3 mt-5">Reviews</h3>
         <section className="grid gap-4">
           <ul>
             {menuItem.reviews.map((item) => (
@@ -58,7 +83,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                   <div className="flex">
                     <Avatar className="size-6">
                       <AvatarImage
-                        src={String(item.user.avatarURL) ?? ''}
+                        src={String(item.user.avatarURL)}
                         alt={item.user.username}
                         className="rounded-full"
                       />

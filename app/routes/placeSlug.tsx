@@ -56,13 +56,6 @@ export default function Route({ loaderData }: Route.ComponentProps) {
 
       <p>{placeData.description}</p>
 
-      {auth?.isAuthenticated && (
-        <>
-          <Textarea placeholder="What do you think about this food ?" />
-          <Button className="max-w-40 self-center">Write Review</Button>
-        </>
-      )}
-
       <section className="grid gap-4">
         <h3 className="font-bold text-2xl text-cyan-600 underline">Menus</h3>
         <ul>

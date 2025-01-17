@@ -53,7 +53,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                   <div className="w-32 h-full bg-gray-50">
                     <img
                       alt="menu item"
-                      src={item.images[0].url}
+                      src={item.images[0]}
                       className="w-full h-full object-cover"
                     />
                   </div>
