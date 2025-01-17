@@ -9,10 +9,10 @@ export default [
   layout('layouts/app.tsx', [
     index('routes/home.tsx'),
     route('/users', 'routes/users.tsx'),
-    route('/city/:citySlug', 'routes/citySlug.tsx'),
     route('/:placeSlug', 'routes/placeSlug.tsx'),
     route('/:placeSlug/:menuItemSlug', 'routes/menuItemSlug.tsx'),
 
+    route('/city/:citySlug', 'routes/citySlug.tsx'),
     route('/explore', 'routes/explore.tsx'),
     route('/reviews', 'routes/reviews.tsx'),
     route('/account', 'routes/account.tsx'),
