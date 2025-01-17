@@ -9,6 +9,7 @@ export default [
   layout('layouts/app.tsx', [
     index('routes/home.tsx'),
     route('/users', 'routes/users.tsx'),
+    route('/city/:citySlug', 'routes/citySlug.tsx'),
     route('/:placeSlug', 'routes/placeSlug.tsx'),
     route('/:placeSlug/:menuItemSlug', 'routes/menuItemSlug.tsx'),
 
@@ -18,6 +19,5 @@ export default [
     route('/search', 'routes/search.tsx'),
     route('/login', 'routes/login.tsx'),
     route('/register', 'routes/register.tsx'),
-    // route('/city/:citySlug', 'routes/citySlug.tsx'),
   ]),
 ] satisfies RouteConfig;
