@@ -72,8 +72,8 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                       {place.address}
                     </div>
                   </div>
-                  <div className="w-1/6 flex items-center gap-1  justify-center">
-                    <StarFilledIcon className="size-8 p-1 bg-amber-400 rounded-full" />
+                  <div className="w-1/6 flex items-center  justify-center border-l">
+                    <StarFilledIcon className="size-8 p-1 text-yellow-500 rounded-full" />
                     <span className="font-bold">{place.ratingScore}</span>
                   </div>
                 </div>

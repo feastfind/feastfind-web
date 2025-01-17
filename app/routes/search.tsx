@@ -53,7 +53,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                   <div className="w-32 h-full bg-gray-50">
                     <img
                       alt="menu item"
-                      src={item.images[0]}
+                      src={String(item.images[0].url)}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -63,7 +63,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                       {item.name}
                     </Label>
                     <div className="flex items-center gap-1 ">
-                      <StarFilledIcon className="text-amber-600" />
+                      <StarFilledIcon className="text-yellow-500" />
                       {item.ratingScore}
                     </div>
                     <div className="flex items-center gap-2 text-sm text-emerald-800">
@@ -115,7 +115,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                     </div>
                   </div>
                   <div className="w-1/6 flex items-center gap-1  justify-center">
-                    <StarFilledIcon className="size-8 p-1 bg-amber-400 rounded-full" />
+                    <StarFilledIcon className="size-8 p-1 text-yellow-500 rounded-full" />
                     <span className="font-bold">{place.ratingScore}</span>
                   </div>
                 </div>
