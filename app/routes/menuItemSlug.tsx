@@ -49,10 +49,12 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         Place: <Link to={`/${menuItem.place.slug}`}>{menuItem.place.name}</Link>
       </p>
       <p>{menuItem.description}</p>
-      <h3 className="font-bold text-cyan-600 underline">What do you think?</h3>
       <div>
         {auth?.isAuthenticated && (
           <div className="bg-slate-200 pl-4 pr-4 pt-5 pb-5 rounded-lg">
+            <h3 className="font-bold text-cyan-600 underline mb-1">
+              What do you think?
+            </h3>
             <div className="flex items-center gap-1 mb-3">
               Rating :
               <StarIcon />
