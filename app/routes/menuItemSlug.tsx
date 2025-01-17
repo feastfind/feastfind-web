@@ -73,6 +73,12 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           </div>
         )}
 
+        {!auth?.isAuthenticated && (
+          <Link to={'/login'}>
+            <Button className="max-w-40 self-center mt-3">Write Review</Button>
+          </Link>
+        )}
+
         <h3 className="font-bold text-cyan-600 underline mb-3 mt-5">Reviews</h3>
         {menuItem.reviews.length === 0 && (
           <p className="text-sm">No reviews available.</p>
