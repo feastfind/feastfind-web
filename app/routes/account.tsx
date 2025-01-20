@@ -1,12 +1,6 @@
 import type { Route } from './+types/account';
 import { auth } from '@/lib/auth';
-import {
-  Form,
-  Link,
-  redirect,
-  useLoaderData,
-  useOutletContext,
-} from 'react-router';
+import { Form, Link, redirect, useOutletContext } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import SearchForm from '@/components/shared/SearchForm';
@@ -20,6 +14,9 @@ export function meta({}: Route.MetaArgs) {
 
 export async function clientLoader() {
   const user = await auth.getUser();
+  if (!user) {
+    return redirect('/login');
+  }
   return { user };
 }
 

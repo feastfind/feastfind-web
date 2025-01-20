@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, useOutletContext } from 'react-router';
 import type { Route } from './+types/placeSlug';
 import { Banknote, MapPin } from 'lucide-react';
 import { StarFilledIcon } from '@radix-ui/react-icons';
@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { formatRupiah } from '@/lib/utils';
 import { auth } from '@/lib/auth';
+import SearchForm from '@/components/shared/SearchForm';
 
 type PlaceBySlugResponse =
   paths['/places/{slug}']['get']['responses'][200]['content']['application/json'];
@@ -32,8 +33,11 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Route({ loaderData }: Route.ComponentProps) {
   const { placeData } = loaderData;
+  const searchFormStatus: boolean = useOutletContext();
+
   return (
     <main className="flex flex-col gap-4 p-5 mb-20">
+      {searchFormStatus && <SearchForm />}
       <div className="w-full relative h-52 bg-gray-200 rounded-2xl overflow-hidden">
         <img
           alt="place"
@@ -71,7 +75,17 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
         <hr className="mt-2 mb-2 border-slate-400" />
-        <div>MAPS here</div>
+        <div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.048821680061!2d104.0461696!3d1.1253095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d9891bc34134ff%3A0x9aa4327b66021810!2sde&#39;SAMPAN%20BBQ%20CENTRE!5e0!3m2!1sen!2sid!4v1737335666225!5m2!1sen!2sid"
+            width="100%"
+            height="250"
+            // style="border:0;"
+            // allowfullscreen=""
+            loading="lazy"
+            // referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
       </div>
 
       <section className="grid gap-4">

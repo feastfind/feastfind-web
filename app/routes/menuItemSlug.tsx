@@ -41,9 +41,12 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       {searchFormStatus && <SearchForm />}
       <div className="text-2xl font-bold">{menuItem.name}</div>
       <img src={menuItem.images[0].url} className="w-full h-80 rounded-2xl" />
-      <div className="flex items-center gap-1 text-slate-400">
+      <div className="flex items-center gap-1 text-slate-500">
         Rating: <StarFilledIcon className="size-5 text-amber-600" />
-        <p>{menuItem.ratingScore}</p>
+        <p>
+          {menuItem.ratingScore} {`: `}
+          {menuItem.reviews.length} people reviews
+        </p>
       </div>
       <p className="text-amber-600 hover:text-amber-800">
         Place: <Link to={`/${menuItem.place.slug}`}>{menuItem.place.name}</Link>

@@ -3,7 +3,7 @@ import { House, MapPinned, StarIcon, UserIcon } from 'lucide-react';
 import { NavLink, Outlet, useLocation } from 'react-router';
 import type { Route } from './+types/app';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { CrossCircledIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
 
 export async function clientLoader() {
@@ -24,12 +24,21 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
           <NavLink to={'/'}>
             <h1 className="text-2xl font-bold text-white">🍽️ FeastFind</h1>
           </NavLink>
-          {location.pathname !== '/' && (
-            <MagnifyingGlassIcon
-              onClick={() => setSearchFormStatus(!searchFormStatus)}
-              className="text-white size-5"
-            />
-          )}
+          {location.pathname !== '/' &&
+            location.pathname !== '/search' &&
+            location.pathname !== '/login' &&
+            location.pathname !== '/register' &&
+            (!searchFormStatus ? (
+              <MagnifyingGlassIcon
+                onClick={() => setSearchFormStatus(!searchFormStatus)}
+                className="text-white size-5 hover:cursor-pointer hover:text-slate-300 transition-all"
+              />
+            ) : (
+              <CrossCircledIcon
+                onClick={() => setSearchFormStatus(!searchFormStatus)}
+                className="text-white size-5 hover:cursor-pointer hover:text-slate-300 transition-all"
+              />
+            ))}
         </div>
       </div>
 

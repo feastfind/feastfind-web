@@ -7,6 +7,7 @@ import { Link, Form } from 'react-router';
 import { ENV } from '@/env';
 import { formatRupiah } from '@/lib/utils';
 import { StarFilledIcon } from '@radix-ui/react-icons';
+import { Button } from '@/components/ui/button';
 
 type PlacesResponse =
   paths['/places']['get']['responses'][200]['content']['application/json'];
@@ -81,6 +82,11 @@ export default function Route({ loaderData }: Route.ComponentProps) {
             </Link>
           ))}
         </ul>
+        <div className="flex justify-center">
+          <Button className="max-w-40 mt-3 mb-8 bg-red-700">
+            Load More ...
+          </Button>
+        </div>
       </div>
     </>
   );

@@ -3,29 +3,20 @@ import type { Route } from './+types/reviews';
 import type { paths } from '@/schema';
 import { ENV } from '@/env';
 import {
-  BookmarkFilledIcon,
-  QuestionMarkCircledIcon,
-  SewingPinFilledIcon,
+  PinBottomIcon,
+  PinTopIcon,
   StarFilledIcon,
 } from '@radix-ui/react-icons';
-import {
-  LucideQuote,
-  MapIcon,
-  MessageSquareQuoteIcon,
-  PinIcon,
-  QuoteIcon,
-  TextQuoteIcon,
-} from 'lucide-react';
+import { MessageSquareQuoteIcon, PinIcon } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
-import { Form, Link, useOutletContext } from 'react-router';
-import { Input } from '@/components/ui/input';
+import { Link, useOutletContext } from 'react-router';
 import SearchForm from '@/components/shared/SearchForm';
-import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 type ReviewsResponse =
   paths['/reviews']['get']['responses'][200]['content']['application/json'];
 
-export async function clientLoader({ params }: Route.LoaderArgs) {
+export async function clientLoader() {
   const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/reviews`);
   const reviewsData: ReviewsResponse = await response.json();
   return { reviewsData };
@@ -46,10 +37,16 @@ export default function Route({ loaderData }: Route.ComponentProps) {
     <>
       <div className="flex flex-col gap-4 p-5">
         {searchFormStatus && <SearchForm />}
-        <div className="text-2xl font-medium">All Reviews</div>
+        <div className="flex justify-between items-center">
+          <div className="text-2xl font-medium">All Reviews</div>
+          <div className="flex gap-3">
+            <PinTopIcon className="hover:text-black text-red-600 size-5 cursor-pointer" />
+            <PinBottomIcon className="hover:text-black text-red-600 size-5 cursor-pointer" />
+          </div>
+        </div>
       </div>
 
-      <main className="flex flex-col gap-4 p-5 mb-20">
+      <main className="flex flex-col gap-4 p-5 mb-10">
         <section className="grid gap-4">
           <ul>
             {reviewsData.map((item) => (
@@ -112,6 +109,10 @@ export default function Route({ loaderData }: Route.ComponentProps) {
               </li>
             ))}
           </ul>
+
+          <div className="flex justify-center">
+            <Button className="max-w-40 mt-3 bg-red-700">Load More ...</Button>
+          </div>
         </section>
       </main>
     </>
