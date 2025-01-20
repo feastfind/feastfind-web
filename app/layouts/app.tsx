@@ -9,10 +9,11 @@ import {
   MoonIcon,
   SunIcon,
 } from '@radix-ui/react-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export async function clientLoader() {
   const user = await auth.getUser();
+  const mode = localStorage.getItem('mode');
   return { user };
 }
 
@@ -20,7 +21,17 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
   const { user } = loaderData;
 
   const [searchFormStatus, setSearchFormStatus] = useState(false);
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState(localStorage.getItem('mode'));
+
+  const modeHandlerSun = (): void => {
+    localStorage.setItem('mode', 'dark');
+    setMode('dark');
+  };
+
+  const modeHandlerMoon = (): void => {
+    localStorage.setItem('mode', 'light');
+    setMode('light');
+  };
 
   let location = useLocation();
 
@@ -37,12 +48,12 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
               {mode === 'light' ? (
                 <SunIcon
                   className="text-white size-5 cursor-pointer"
-                  onClick={() => setMode('dark')}
+                  onClick={() => modeHandlerSun()}
                 />
               ) : (
                 <MoonIcon
                   className="text-white size-5 cursor-pointer"
-                  onClick={() => setMode('light')}
+                  onClick={() => modeHandlerMoon()}
                 />
               )}
 
