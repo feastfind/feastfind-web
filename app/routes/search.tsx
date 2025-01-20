@@ -92,7 +92,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         <ul className="grid gap-4">
           {searchJSON?.places?.map((place) => (
             <Link key={place.id} to={`/${place.slug}`}>
-              <li className="h-72 border-b border-gray-300 mb-3">
+              <li className="h-72 border-b mb-3">
                 <div className="h-2/3 rounded-t-xl overflow-hidden">
                   <img
                     alt="banner"
