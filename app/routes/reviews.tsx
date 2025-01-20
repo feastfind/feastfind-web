@@ -41,7 +41,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           <div className="text-2xl font-medium ">All Reviews</div>
           <div className="flex gap-3">
             <PinTopIcon className="hover:text-black text-red-600 dark:text-slate-200 size-5 cursor-pointer" />
-            <PinBottomIcon className="hover:text-black text-red-600 dark:text-slate-200 dark:text-slate-200 size-5 cursor-pointer" />
+            <PinBottomIcon className="hover:text-black text-red-600 dark:text-slate-200 size-5 cursor-pointer" />
           </div>
         </div>
       </div>
