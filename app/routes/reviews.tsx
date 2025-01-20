@@ -35,13 +35,13 @@ export default function Route({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <div className="flex flex-col gap-4 p-5">
+      <div className="flex flex-col gap-4 p-5 dark:text-white">
         {searchFormStatus && <SearchForm />}
         <div className="flex justify-between items-center">
-          <div className="text-2xl font-medium">All Reviews</div>
+          <div className="text-2xl font-medium ">All Reviews</div>
           <div className="flex gap-3">
-            <PinTopIcon className="hover:text-black text-red-600 size-5 cursor-pointer" />
-            <PinBottomIcon className="hover:text-black text-red-600 size-5 cursor-pointer" />
+            <PinTopIcon className="hover:text-black text-red-600 dark:text-slate-200 size-5 cursor-pointer" />
+            <PinBottomIcon className="hover:text-black text-red-600 dark:text-slate-200 dark:text-slate-200 size-5 cursor-pointer" />
           </div>
         </div>
       </div>
@@ -52,9 +52,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
             {reviewsData.map((item) => (
               <li
                 key={item.id}
-                className="p-4 border border-gray-300 rounded-2xl mb-4 h-auto"
+                className="p-4 border border-gray-300 rounded-2xl mb-4 h-auto dark:bg-slate-800 dark:text-white"
               >
-                <div className="flex justify-between bg-slate-200 pt-2 pb-2 pl-2 pr-3 mb-3 rounded-lg">
+                <div className="flex justify-between bg-slate-200 pt-2 pb-2 pl-2 pr-3 mb-3 rounded-lg dark:bg-slate-600">
                   <div className="flex">
                     <Avatar className="size-6">
                       <AvatarImage
@@ -67,7 +67,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                     <span className="text-md ml-2">{item.user.name}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <StarFilledIcon className="text-amber-600" />
+                    <StarFilledIcon className="text-yellow-500" />
                     {item.rating}
                   </div>
                 </div>
@@ -80,7 +80,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                         src={item.menuItem.images[0].url}
                         className="object-cover rounded-lg mb-2"
                       />
-                      <div className=" mb-2 text-xs text-red-600 hover:text-amber-600">
+                      <div className=" mb-2 text-xs text-red-600 dark:text-yellow-500 hover:text-amber-600">
                         {item.menuItem.name}
                       </div>
                     </Link>
@@ -96,7 +96,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                     <hr className="mb-3" />
                     <div className="flex justify-end">
                       <div className="flex gap-2">
-                        <PinIcon className="p-1 bg-slate-200 rounded-full" />
+                        <PinIcon className="p-1 bg-slate-200 dark:bg-slate-700 rounded-full" />
                         <span className="text-sm text-amber-600 hover:text-amber-500 transition-all">
                           <Link to={`/${item.menuItem.place.slug}`}>
                             {item.menuItem.place.name}
@@ -111,7 +111,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           </ul>
 
           <div className="flex justify-center">
-            <Button className="max-w-40 mt-3 bg-red-700">Load More ...</Button>
+            <Button className="max-w-40 mt-3 bg-red-700 dark:bg-slate-700 dark:text-white hover:dark:bg-slate-500">
+              Load More ...
+            </Button>
           </div>
         </section>
       </main>

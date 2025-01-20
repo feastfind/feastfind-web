@@ -33,7 +33,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
     <main className="p-3">
       {searchFormStatus && <SearchForm />}
       {auth.isAuthenticated && user ? (
-        <div className="flex p-4 gap-4 border rounded-2xl overflow-auto items-center">
+        <div className="flex mt-4 p-4 gap-4 border rounded-2xl overflow-auto items-center dark:bg-slate-700">
           <div>
             <Avatar className="size-20">
               <AvatarImage src={String(user.avatarURL)} alt={user.username} />
@@ -41,8 +41,10 @@ export default function Route({ loaderData }: Route.ComponentProps) {
             </Avatar>
           </div>
 
-          <div className="p-2 flex flex-col gap-4">
-            <label className="text-xl">Hello, {user.username}</label>
+          <div className="p-2 flex flex-col gap-4 ">
+            <label className="text-xl dark:text-white">
+              Hello, {user.username}
+            </label>
 
             <Form method="post">
               <Button type="submit">Logout</Button>
