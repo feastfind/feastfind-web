@@ -3,7 +3,7 @@ import { Input } from '../ui/input';
 
 export default function SearchForm() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 dark:text-slate-300">
       <Form action="/search">
         <Input
           type="text"

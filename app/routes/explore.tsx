@@ -15,7 +15,9 @@ export default function Route() {
     <>
       <div className="flex flex-col gap-4 p-5">
         {searchFormStatus && <SearchForm />}
-        <div className="text-2xl font-medium">Explore Places</div>
+        <div className="text-2xl font-medium dark:text-white">
+          Explore Places
+        </div>
       </div>
     </>
   );

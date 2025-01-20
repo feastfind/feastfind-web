@@ -40,7 +40,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       </div>
 
       <div className="flex flex-col gap-4 px-5 mb-8">
-        <h3 className="font-bold text-cyan-600 underline text-2xl">Menus</h3>
+        <h3 className="font-bold text-cyan-600 dark:text-slate-300 underline text-2xl">
+          Menus
+        </h3>
         {searchJSON.menuItems.length === 0 && (
           <p className="text-sm">No menu items available.</p>
         )}
@@ -59,14 +61,14 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                   </div>
 
                   <div className="flex-1 p-4">
-                    <Label className="text-lg text-amber-800 hover:text-amber-600 cursor-pointer">
+                    <Label className="text-lg text-amber-800 hover:text-amber-600 dark:text-yellow-500 dark:hover:text-yellow-400 cursor-pointer font-bold">
                       {item.name}
                     </Label>
-                    <div className="flex items-center gap-1 ">
-                      <StarFilledIcon className="text-yellow-500" />
+                    <div className="flex items-center gap-1 dark:text-slate-300">
+                      <StarFilledIcon className="text-yellow-500 " />
                       {item.ratingScore}
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-emerald-800">
+                    <div className="flex items-center gap-2 text-sm text-emerald-800 dark:text-cyan-300">
                       <Banknote />
                       <div>{`${formatRupiah(
                         parseInt(String(item.price))
@@ -81,9 +83,11 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       </div>
 
       <div className="flex flex-col gap-4 px-5 mb-8">
-        <h3 className="font-bold text-cyan-600 underline text-2xl">Places</h3>
+        <h3 className="font-bold text-cyan-600 dark:text-slate-300 underline text-2xl">
+          Places
+        </h3>
         {searchJSON?.places?.length === 0 && (
-          <p className="text-sm">No places found.</p>
+          <p className="text-sm dark:text-white">No places found.</p>
         )}
         <ul className="grid gap-4">
           {searchJSON?.places?.map((place) => (
@@ -98,11 +102,11 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                 </div>
 
                 <div className="flex">
-                  <div className="text-sm w-5/6 p-3">
-                    <div className="text-lg font-bold text-red-800 hover:text-amber-600 transition-all">
+                  <div className="text-sm w-5/6 p-3 dark:text-white">
+                    <div className="text-xl font-bold text-red-800 hover:text-amber-600 transition-all dark:text-yellow-500">
                       {place.name}
                     </div>
-                    <div className="flex items-center gap-2 text-emerald-800">
+                    <div className="flex items-center gap-2 text-emerald-800 dark:text-cyan-300">
                       <Banknote />
                       <div>{`${formatRupiah(
                         parseInt(String(place.priceMin))
@@ -114,9 +118,11 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                       {place.address}
                     </div>
                   </div>
-                  <div className="w-1/6 flex items-center gap-1  justify-center border-l">
-                    <StarFilledIcon className="size-8 p-1 text-yellow-500 rounded-full" />
-                    <span className="font-bold">{place.ratingScore}</span>
+                  <div className="w-1/6 flex items-center gap-1  justify-center border-l dark:border-l-grey">
+                    <StarFilledIcon className="size-8 p-1 text-yellow-500 rounded-full dark:text-yellow-500" />
+                    <span className="font-bold dark:text-yellow-500">
+                      {place.ratingScore}
+                    </span>
                   </div>
                 </div>
               </li>

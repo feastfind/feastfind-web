@@ -29,9 +29,9 @@ export async function clientLoader() {
 export default function Route({ loaderData }: Route.ComponentProps) {
   const { placesJSON } = loaderData;
   return (
-    <>
-      <div className="flex flex-col gap-4 p-5">
-        <div className="text-2xl font-medium">What would you like today?</div>
+    <div className="dark:text-white">
+      <div className="flex flex-col gap-4 p-5 ">
+        <div className="text-2xl font-medium ">What would you like today?</div>
         <div className="text-sm">{`${placesJSON.length} places available`}</div>
         <Form action="/search">
           <Input
@@ -49,7 +49,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         <ul className="grid gap-4">
           {placesJSON.map((place) => (
             <Link key={place.id} to={`/${place.slug}`}>
-              <li className="h-72 border-b border-gray-300 mb-3">
+              <li className="h-72 border-b mb-3">
                 <div className="h-2/3 rounded-t-xl overflow-hidden">
                   <img
                     alt="banner"
@@ -60,10 +60,10 @@ export default function Route({ loaderData }: Route.ComponentProps) {
 
                 <div className="flex">
                   <div className="text-sm w-5/6 p-3">
-                    <div className="text-lg font-bold text-red-800 hover:text-amber-600 transition-all">
+                    <div className="text-xl font-bold text-red-800 dark:text-yellow-500 hover:text-amber-500 transition-all">
                       {place.name}
                     </div>
-                    <div className="flex items-center gap-2 text-emerald-800">
+                    <div className="flex items-center gap-2 text-emerald-800 dark:text-cyan-300">
                       <Banknote />
                       <div>{`${formatRupiah(
                         parseInt(place.priceMin)
@@ -73,9 +73,11 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                       {place.address}
                     </div>
                   </div>
-                  <div className="w-1/6 flex items-center  justify-center border-l">
+                  <div className="w-1/6 flex items-center  justify-center border-l dark:border-l-grey">
                     <StarFilledIcon className="size-8 p-1 text-yellow-500 rounded-full" />
-                    <span className="font-bold">{place.ratingScore}</span>
+                    <span className="font-bold dark:text-yellow-500">
+                      {place.ratingScore}
+                    </span>
                   </div>
                 </div>
               </li>
@@ -83,11 +85,11 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           ))}
         </ul>
         <div className="flex justify-center">
-          <Button className="max-w-40 mt-3 mb-8 bg-red-700">
+          <Button className="max-w-40 mt-3 mb-8 bg-red-700 dark:bg-slate-700 dark:text-white hover:dark:bg-slate-500">
             Load More ...
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

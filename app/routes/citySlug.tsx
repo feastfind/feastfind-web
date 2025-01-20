@@ -32,38 +32,42 @@ export default function Route({ loaderData }: Route.ComponentProps) {
   const { pathname } = useLocation();
 
   return (
-    <div className="flex flex-col gap-4 p-5">
+    <div className="flex flex-col gap-4 p-5 dark:text-slate-200">
       {searchFormStatus && <SearchForm />}
       <div className="text-2xl font-medium">
         All Places in{' '}
-        <span className=" text-cyan-600 capitalize">
+        <span className=" text-cyan-600 dark:text-cyan-500 capitalize underline">
           {pathname.split('/')[2]}
         </span>
       </div>
 
       <ul className="grid gap-4">
         {cityData.places.map((place) => (
-          <li key={place.id}>
-            <div className="border-b pt-2 pb-2 flex flex-col gap-2">
-              <Link to={`/${place.slug}`}>
-                <h3 className="font-bold text-lg text-red-600 hover:text-yellow-700">
+          <Link
+            to={`/${place.slug}`}
+            className="dark:hover:bg-slate-900 cursor-pointer"
+          >
+            <li key={place.id} className="dark:text-slate-200">
+              <div className="border-b pt-2 pb-2 flex flex-col gap-2">
+                <h3 className="font-bold text-lg text-red-600 hover:text-red-700 dark:text-yellow-500">
                   {place.name}
                 </h3>
-              </Link>
 
-              <p className="text-sm">{place.description}</p>
-              <div className="flex items-center gap-2 text-cyan-700 text-sm">
-                <Banknote />
-                <Label>{`${formatRupiah(
-                  parseInt(String(place.priceMin))
-                )} - ${formatRupiah(
-                  parseInt(String(place.priceMax))
-                )}`}</Label>{' '}
-                | Rating : <StarFilledIcon className="text-yellow-600" />{' '}
-                {place.ratingScore}
+                <p className="text-sm">{place.description}</p>
+                <div className="flex items-center gap-2 text-cyan-700 dark:text-cyan-300 text-sm">
+                  <Banknote />
+                  <Label>{`${formatRupiah(
+                    parseInt(String(place.priceMin))
+                  )} - ${formatRupiah(
+                    parseInt(String(place.priceMax))
+                  )}`}</Label>{' '}
+                  | Rating :{' '}
+                  <StarFilledIcon className="text-yellow-600 dark:text-yellow-500" />
+                  {place.ratingScore}
+                </div>
               </div>
-            </div>
-          </li>
+            </li>
+          </Link>
         ))}
       </ul>
     </div>
