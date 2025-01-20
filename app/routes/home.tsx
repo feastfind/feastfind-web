@@ -46,19 +46,19 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       <div className="flex flex-col gap-4 px-5 mb-4">
         <h2>All places</h2>
 
-        <ul className="grid gap-4">
+        <ul className="flex flex-col gap-4">
           {placesJSON.map((place) => (
             <Link key={place.id} to={`/${place.slug}`}>
-              <li className="h-72 border-b mb-3">
-                <div className="h-2/3 rounded-t-xl overflow-hidden">
+              <li className="h-72 mb-3">
+                <div className="h-2/3">
                   <img
                     alt="banner"
                     src={place.images[0]}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-t-xl "
                   />
                 </div>
 
-                <div className="flex">
+                <div className="flex h-1/3 border-b">
                   <div className="text-sm w-5/6 p-3">
                     <div className="text-xl font-bold text-red-800 dark:text-yellow-500 hover:text-amber-500 transition-all">
                       {place.name}
