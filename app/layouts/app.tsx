@@ -21,7 +21,7 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
   const { user } = loaderData;
 
   const [searchFormStatus, setSearchFormStatus] = useState(false);
-  const [mode, setMode] = useState(localStorage.getItem('mode'));
+  const [mode, setMode] = useState(localStorage.getItem('mode') || 'light');
 
   const modeHandlerSun = (): void => {
     localStorage.setItem('mode', 'dark');
