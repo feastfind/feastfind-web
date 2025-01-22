@@ -19,6 +19,18 @@ type ReviewsResponse =
 export async function clientLoader() {
   const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/reviews`);
   const reviewsData: ReviewsResponse = await response.json();
+
+  reviewsData.forEach((review) => {
+    const date = new Date(review.createdAt ?? '');
+    const formattedDate = date.toLocaleDateString('id-ID', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    review.createdAt = formattedDate;
+  });
+
   return { reviewsData };
 }
 
@@ -38,7 +50,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       <div className="flex flex-col gap-4 p-5 dark:text-white">
         {searchFormStatus && <SearchForm />}
         <div className="flex justify-between items-center">
-          <div className="text-2xl font-medium ">All Reviews</div>
+          <div className="text-2xl font-medium ">Recent Reviews</div>
           <div className="flex gap-3">
             <PinTopIcon className="hover:text-black text-red-600 dark:text-slate-200 size-5 cursor-pointer" />
             <PinBottomIcon className="hover:text-black text-red-600 dark:text-slate-200 size-5 cursor-pointer" />
@@ -54,6 +66,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                 key={item.id}
                 className="p-4 border border-gray-300 rounded-2xl mb-4 h-auto dark:bg-slate-800 dark:text-white"
               >
+                <p className="text-xs mb-2 flex justify-end text-slate-500">
+                  Post on : {item.createdAt}
+                </p>
                 <div className="flex justify-between bg-slate-200 pt-2 pb-2 pl-2 pr-3 mb-3 rounded-lg dark:bg-slate-600">
                   <div className="flex">
                     <Avatar className="size-6">
