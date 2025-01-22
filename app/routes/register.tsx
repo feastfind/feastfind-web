@@ -69,12 +69,12 @@ export default function Route({ actionData }: Route.ComponentProps) {
             </div>
             <div className="grid gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">Full Name</Label>
                 <Input
                   id="name"
                   name="name"
                   type="text"
-                  placeholder="John Doe"
+                  placeholder="Devina Hermawan"
                 />
                 <p>{fields.name.errors}</p>
               </div>
@@ -84,7 +84,7 @@ export default function Route({ actionData }: Route.ComponentProps) {
                   id="username"
                   name="username"
                   type="text"
-                  placeholder="johndoe"
+                  placeholder="devinahermawan"
                 />
                 <p>{fields.username.errors}</p>
               </div>
@@ -94,7 +94,7 @@ export default function Route({ actionData }: Route.ComponentProps) {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="email@example.com"
+                  placeholder="devina@masterchef.com"
                 />
               </div>
               <div className="grid gap-2">

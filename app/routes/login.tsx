@@ -70,7 +70,7 @@ export default function Route({ actionData }: Route.ComponentProps) {
                 <Input
                   id="email"
                   type="text"
-                  placeholder="m@example.com / johndoe07"
+                  placeholder="m@example.com / devinahermawan"
                   autoComplete="off"
                   name={fields.identifier.name}
                 />
