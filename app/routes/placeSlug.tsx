@@ -41,7 +41,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       <div className="w-full relative h-52 bg-gray-200 rounded-2xl overflow-hidden">
         <img
           alt="place"
-          src={placeData.menuItems[0].images[0]}
+          src={`${placeData.menuItems[0].images[0]}/-/resize/500/`}
           className="w-full h-full object-cover"
         />
         <div className="absolute top-4 left-4 flex items-center justify-center gap-1 p-2 rounded-lg bg-white">
@@ -89,29 +89,27 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       </div>
 
       <section className="grid gap-4">
-        <h3 className="font-bold text-2xl text-cyan-600 dark:text-slate-300 underline">
-          Menus
-        </h3>
+        <h3 className="font-bold text-2xl text-foreground">Menu Items</h3>
         <ul>
           {placeData.menuItems.map((item) => (
             <li key={item.id} className="mb-4">
               <Link to={`${item.slug}`} className="block">
-                <div className="flex border rounded-2xl overflow-hidden h-32">
+                <div className="flex border rounded-2xl overflow-hidden h-32 bg-card">
                   <div className="w-32 h-full bg-gray-50">
                     <img
                       alt="menu item"
-                      src={item.images[0]}
+                      src={`${item.images[0]}-/resize/300/`}
                       className="w-full h-full object-cover"
                     />
                   </div>
 
                   <div className="flex-1 p-4">
-                    <Label className="text-lg text-amber-800 hover:text-amber-600 dark:text-yellow-500 dark:hover:text-yellow-400 cursor-pointer font-bold">
+                    <Label className="text-lg text-amber-800 dark:text-yellow-500 cursor-pointer font-bold">
                       {item.name}
                     </Label>
                     <div className="flex items-center gap-1 dark:text-slate-300">
-                      <StarFilledIcon className="text-amber-600 dark:text-yellow-500" />
                       {item.ratingScore}
+                      <StarFilledIcon className="text-amber-600 dark:text-yellow-500" />
                     </div>
                     <div className="flex items-center gap-2 font-light dark:text-cyan-300">
                       <Banknote />

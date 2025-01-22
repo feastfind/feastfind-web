@@ -95,20 +95,29 @@ export default function Route({
   return (
     <div className="flex flex-col gap-4 p-5 mb-20">
       {searchFormStatus && <SearchForm />}
+
       <div className="text-2xl font-bold dark:text-yellow-500">
         {menuItem.name}
       </div>
-      <img src={menuItem.images[0].url} className="w-full h-80 rounded-2xl" />
+
+      <img
+        src={`${menuItem.images[0].url}-/resize/500/`}
+        className="w-full h-80 rounded-2xl object-cover"
+      />
+
       <div className="flex items-center gap-1 text-slate-500 dark:text-slate-400">
         <p>{menuItem.ratingScore}</p>
         <StarFilledIcon className="size-5 text-amber-600 dark:text-yellow-500" />
         <p>{menuItem.reviews.length} people reviews</p>
       </div>
+
       <div className="flex gap-2 text-amber-600 dark:text-cyan-500 hover:text-amber-800 dark:hover:text-cyan-400 cursor-pointer">
         <PinIcon className="p-1 bg-slate-200 dark:bg-slate-700 rounded-full" />
         <Link to={`/${menuItem.place.slug}`}>{menuItem.place.name}</Link>
       </div>
+
       <p className="dark:text-white">{menuItem.description}</p>
+
       <div>
         {auth?.isAuthenticated && (
           <Form
@@ -120,6 +129,7 @@ export default function Route({
             <h3 className="font-bold text-cyan-600 dark:text-cyan-300 underline mb-1">
               What do you think?
             </h3>
+
             <div className="flex items-center gap-1 mb-3 dark:text-slate-300">
               Rate:
               {[...Array(TOTAL_STARS)].map((_, index) => {
@@ -166,7 +176,7 @@ export default function Route({
           </Link>
         )}
 
-        <h3 className="font-bold text-cyan-600 underline mb-3 mt-5">Reviews</h3>
+        <h3 className="font-bold text-foreground mb-3 mt-5">Reviews</h3>
         {menuItem.reviews.length === 0 && (
           <p className="text-sm dark:text-white">No reviews available.</p>
         )}

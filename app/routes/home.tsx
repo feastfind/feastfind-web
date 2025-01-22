@@ -53,7 +53,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                 <div className="h-2/3">
                   <img
                     alt="banner"
-                    src={place.images[0]}
+                    src={`${place.images[0]}-/resize/500/`}
                     className="w-full h-full object-cover rounded-t-xl "
                   />
                 </div>
