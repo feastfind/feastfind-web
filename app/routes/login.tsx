@@ -47,8 +47,8 @@ export default function Route({ actionData }: Route.ComponentProps) {
   });
 
   return (
-    <div className="max-w-[500px] relative min-h-screen border-l border-r mx-auto overflow-auto no-scrollbar">
-      <div className="h-screen flex flex-1 items-center justify-center">
+    <div className="border-l border-r mx-auto overflow-auto no-scrollbar">
+      <div className="flex justify-center mt-32">
         <div className="w-full max-w-xs">
           <Form
             method="post"
@@ -57,13 +57,15 @@ export default function Route({ actionData }: Route.ComponentProps) {
             className="flex flex-col gap-6"
           >
             <div className="flex flex-col items-center gap-2 text-center">
-              <h1 className="text-2xl font-bold">Login to your account</h1>
+              <h1 className="text-2xl font-bold dark:text-white">
+                Login to your account
+              </h1>
               <p className="text-balance text-sm text-muted-foreground">
                 Enter your email below to login to your account
               </p>
             </div>
-            <div className="grid gap-6">
-              <div className="grid gap-2">
+            <div className="grid gap-6 dark:text-white">
+              <div className="grid gap-2 ">
                 <Label htmlFor="email">Email / Username</Label>
                 <Input
                   id="email"
@@ -101,11 +103,11 @@ export default function Route({ actionData }: Route.ComponentProps) {
                 Login
               </Button>
             </div>
-            <div className="text-center text-sm">
+            <div className="text-center text-sm dark:text-white">
               Don&apos;t have an account?{' '}
               <Link
                 to="/register"
-                className="underline underline-offset-4 text-red-500"
+                className="underline underline-offset-4 text-red-500 hover:text-red-700 dark:text-yellow-500 dark:hover:text-yellow-600 transition-all"
               >
                 Sign up
               </Link>

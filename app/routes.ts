@@ -12,11 +12,12 @@ export default [
     route('/:placeSlug', 'routes/placeSlug.tsx'),
     route('/:placeSlug/:menuItemSlug', 'routes/menuItemSlug.tsx'),
 
+    route('/city/:citySlug', 'routes/citySlug.tsx'),
     route('/explore', 'routes/explore.tsx'),
     route('/reviews', 'routes/reviews.tsx'),
     route('/account', 'routes/account.tsx'),
     route('/search', 'routes/search.tsx'),
+    route('/login', 'routes/login.tsx'),
+    route('/register', 'routes/register.tsx'),
   ]),
-  route('/login', 'routes/login.tsx'),
-  route('/register', 'routes/register.tsx'),
 ] satisfies RouteConfig;

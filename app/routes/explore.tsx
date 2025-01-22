@@ -1,7 +1,9 @@
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useEffect, useState } from 'react';
+import SearchForm from '@/components/shared/SearchForm';
 import type { Route } from './+types/explore';
+import { useOutletContext } from 'react-router';
 
 const { LngLat } = maplibregl;
 
@@ -108,12 +110,13 @@ export default function Route() {
     }
   }, [userLocation]);
 
+  const searchFormStatus: boolean = useOutletContext();
+
   return (
-    <>
-      <div className="flex flex-col gap-4 p-5">
-        <div className="text-2xl font-medium">Explore Places</div>
-        <div id="map" style={{ width: '100%', height: '500px' }}></div>
-      </div>
-    </>
+    <div className="flex flex-col gap-4 p-5">
+      <div className="text-2xl font-medium dark:text-white">Explore Places</div>
+      {searchFormStatus && <SearchForm />}
+      <div id="map" style={{ width: '100%', height: '500px' }}></div>
+    </div>
   );
 }

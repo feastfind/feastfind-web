@@ -53,7 +53,7 @@ export default function Route({ actionData }: Route.ComponentProps) {
 
   return (
     <div className="max-w-[500px] relative min-h-screen border-l border-r mx-auto overflow-auto no-scrollbar">
-      <div className="h-screen flex flex-1 items-center justify-center">
+      <div className="h-screen flex items-center justify-center dark:text-white">
         <div className="w-full max-w-xs">
           <Form
             method="post"
@@ -127,7 +127,7 @@ export default function Route({ actionData }: Route.ComponentProps) {
               Already have an account?{' '}
               <Link
                 to="/login"
-                className="underline underline-offset-4 text-red-500"
+                className="underline underline-offset-4 text-red-500 hover:text-red-700 dark:text-yellow-500 dark:hover:text-yellow-600 transition-all"
               >
                 Sign in
               </Link>

@@ -1,8 +1,9 @@
 import type { Route } from './+types/account';
 import { auth } from '@/lib/auth';
-import { Form, Link, redirect, useLoaderData } from 'react-router';
+import { Form, Link, redirect, useOutletContext } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import SearchForm from '@/components/shared/SearchForm';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,6 +14,9 @@ export function meta({}: Route.MetaArgs) {
 
 export async function clientLoader() {
   const user = await auth.getUser();
+  if (!user) {
+    return redirect('/login');
+  }
   return { user };
 }
 
@@ -23,11 +27,13 @@ export async function clientAction() {
 
 export default function Route({ loaderData }: Route.ComponentProps) {
   const { user } = loaderData;
+  const searchFormStatus: boolean = useOutletContext();
 
   return (
     <main className="p-3">
+      {searchFormStatus && <SearchForm />}
       {auth.isAuthenticated && user ? (
-        <div className="flex p-4 gap-4 border rounded-2xl overflow-auto items-center">
+        <div className="flex mt-4 p-4 gap-4 border rounded-2xl overflow-auto items-center dark:bg-slate-700">
           <div>
             <Avatar className="size-20">
               <AvatarImage src={String(user.avatarURL)} alt={user.username} />
@@ -35,8 +41,10 @@ export default function Route({ loaderData }: Route.ComponentProps) {
             </Avatar>
           </div>
 
-          <div className="p-2 flex flex-col gap-4">
-            <label className="text-xl">Hello, {user.username}</label>
+          <div className="p-2 flex flex-col gap-4 ">
+            <label className="text-xl dark:text-white">
+              Hello, {user.username}
+            </label>
 
             <Form method="post">
               <Button type="submit">Logout</Button>
@@ -44,7 +52,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       ) : (
-        <div className="p-3 bg-blue-200 rounded-md">
+        <div className="p-3 bg-blue-200 rounded-2xl mt-3">
           Please{' '}
           <Link to={'/login'} className="underline text-blue-500">
             Log in.
