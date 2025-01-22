@@ -3,7 +3,7 @@ import type { Route } from './+types/menuItemSlug';
 
 import { ENV } from '@/env';
 import { StarFilledIcon, StarIcon } from '@radix-ui/react-icons';
-import { MessageSquareQuoteIcon } from 'lucide-react';
+import { MessageSquareQuoteIcon, PinIcon } from 'lucide-react';
 import { Link, useOutletContext, Form } from 'react-router';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import SearchForm from '@/components/shared/SearchForm';
@@ -100,16 +100,14 @@ export default function Route({
       </div>
       <img src={menuItem.images[0].url} className="w-full h-80 rounded-2xl" />
       <div className="flex items-center gap-1 text-slate-500 dark:text-slate-400">
-        Rating:{' '}
+        <p>{menuItem.ratingScore}</p>
         <StarFilledIcon className="size-5 text-amber-600 dark:text-yellow-500" />
-        <p>
-          {menuItem.ratingScore} {`: `}
-          {menuItem.reviews.length} people reviews
-        </p>
+        <p>{menuItem.reviews.length} people reviews</p>
       </div>
-      <p className="text-amber-600 dark:text-cyan-500 hover:text-amber-800 dark:hover:text-cyan-400 cursor-pointer">
-        Place: <Link to={`/${menuItem.place.slug}`}>{menuItem.place.name}</Link>
-      </p>
+      <div className="flex gap-2 text-amber-600 dark:text-cyan-500 hover:text-amber-800 dark:hover:text-cyan-400 cursor-pointer">
+        <PinIcon className="p-1 bg-slate-200 dark:bg-slate-700 rounded-full" />
+        <Link to={`/${menuItem.place.slug}`}>{menuItem.place.name}</Link>
+      </div>
       <p className="dark:text-white">{menuItem.description}</p>
       <div>
         {auth?.isAuthenticated && (
@@ -123,7 +121,7 @@ export default function Route({
               What do you think?
             </h3>
             <div className="flex items-center gap-1 mb-3 dark:text-slate-300">
-              Rating :
+              Rate:
               {[...Array(TOTAL_STARS)].map((_, index) => {
                 const currentRating = index + 1;
                 return (

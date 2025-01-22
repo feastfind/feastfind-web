@@ -109,7 +109,7 @@ export default function Route({ actionData }: Route.ComponentProps) {
                 to="/register"
                 className="underline underline-offset-4 text-red-500 hover:text-red-700 dark:text-yellow-500 dark:hover:text-yellow-600 transition-all"
               >
-                Sign up
+                Register
               </Link>
             </div>
           </Form>

@@ -55,7 +55,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         <div className="p-3 bg-blue-200 rounded-2xl mt-3">
           Please{' '}
           <Link to={'/login'} className="underline text-blue-500">
-            Log in.
+            Login
           </Link>
         </div>
       )}

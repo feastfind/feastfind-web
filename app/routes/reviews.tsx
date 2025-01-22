@@ -74,7 +74,6 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                     <Avatar className="size-6">
                       <AvatarImage
                         src={String(item.user.avatarURL)}
-                        alt={item.user.username}
                         className="rounded-full"
                       />
                       <AvatarFallback>{item.user.name}</AvatarFallback>
