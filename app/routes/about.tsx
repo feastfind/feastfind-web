@@ -18,7 +18,7 @@ export default function Route() {
     <div className="flex flex-col gap-4 p-5 mt-16">
       <h2 className="text-2xl font-medium dark:text-white">About Feastfind</h2>
       {searchFormStatus && <SearchForm />}
-      <div className="flex flex-col gap-2 text-sm">
+      <div className="flex flex-col gap-2 text-sm dark:text-slate-300">
         <p>
           Kami engineer dan developer aplikasi FeastFind terdiri dari lima orang
           profesional memiliki kemampuan fullstack, menguasai frontend &
@@ -42,24 +42,24 @@ export default function Route() {
       </h3>
 
       <div className="flex gap-2 text-sm items-center">
-        <GitHubLogoIcon />
+        <GitHubLogoIcon className="text-foreground" />
         <Link
           to="https://github.com/feastfind/"
-          className="text-red-600 hover:text-red-800 transition-all"
+          className="text-red-500 hover:text-red-800 transition-all"
           target="_blank"
         >
           Feastfind |
         </Link>
         <Link
           to="https://github.com/feastfind/feastfind-web"
-          className="text-red-600 hover:text-red-800 transition-all"
+          className="text-red-500 hover:text-red-800 transition-all"
           target="_blank"
         >
           Feastfind Web |
         </Link>
         <Link
           to="https://github.com/feastfind/feastfind-api"
-          className="text-red-600 hover:text-red-800 transition-all"
+          className="text-red-500 hover:text-red-800 transition-all"
           target="_blank"
         >
           Feastfind Api
@@ -82,14 +82,14 @@ export default function Route() {
               <div className="text-lg font-semibold text-red-700">
                 {team.name}
               </div>
-              <div className="text-sm flex items-center gap-2 text-slate-600">
+              <div className="text-sm flex items-center gap-2 text-slate-600 dark:text-slate-300">
                 {team.position}
                 <div className="flex gap-2">
                   <Link to={team.github} target="_blank">
-                    <GitHubLogoIcon className="text-red-800 hover:text-slate-800" />
+                    <GitHubLogoIcon className="text-red-600 hover:text-slate-800" />
                   </Link>
                   <Link to={team.linkedin} target="_blank">
-                    <LinkedInLogoIcon className="text-blue-800 hover:text-slate-800" />
+                    <LinkedInLogoIcon className="text-blue-600 hover:text-slate-800" />
                   </Link>
                 </div>
               </div>
