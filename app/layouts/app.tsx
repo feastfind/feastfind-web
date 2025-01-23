@@ -89,6 +89,13 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
 
         <Outlet context={searchFormStatus} />
 
+        {location.pathname !== '/login' &&
+          location.pathname !== '/register' && (
+            <div className="text-sm text-center mt-4 mb-8 text-slate-600">
+              &copy; Copyrights 2025 | Feastfind - All Rights Reserved
+            </div>
+          )}
+
         <nav className="fixed bottom-0 left-0 right-0 w-full max-w-[500px] mx-auto h-16 bg-white dark:bg-slate-700 flex justify-start items-center gap-4 border">
           <div className="w-full h-full flex justify-around">
             <NavLink
