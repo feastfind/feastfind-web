@@ -14,6 +14,8 @@ export function meta({}: Route.MetaArgs) {
 export default function Route() {
   const searchFormStatus: boolean = useOutletContext();
 
+  console.log(teamData);
+
   return (
     <div className="flex flex-col gap-4 p-5 mt-16">
       <h2 className="text-2xl font-medium dark:text-white">About Feastfind</h2>

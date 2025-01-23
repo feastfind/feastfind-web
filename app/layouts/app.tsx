@@ -9,11 +9,10 @@ import {
   MoonIcon,
   SunIcon,
 } from '@radix-ui/react-icons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export async function clientLoader() {
   const user = await auth.getUser();
-  const mode = localStorage.getItem('mode');
   return { user };
 }
 
