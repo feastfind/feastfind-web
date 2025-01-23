@@ -113,7 +113,7 @@ export default function Route() {
   const searchFormStatus: boolean = useOutletContext();
 
   return (
-    <div className="flex flex-col gap-4 p-5">
+    <div className="flex flex-col gap-4 p-5 mt-16">
       <div className="text-2xl font-medium dark:text-white">Explore Places</div>
       {searchFormStatus && <SearchForm />}
       <div id="map" style={{ width: '100%', height: '500px' }}></div>

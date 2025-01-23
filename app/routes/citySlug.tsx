@@ -32,7 +32,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
   const { pathname } = useLocation();
 
   return (
-    <div className="flex flex-col gap-4 p-5 dark:text-slate-200">
+    <div className="flex flex-col gap-4 p-5 dark:text-slate-200 mt-16">
       {searchFormStatus && <SearchForm />}
       <div className="text-2xl font-medium">
         All Places in{' '}

@@ -29,7 +29,7 @@ export async function clientLoader() {
 export default function Route({ loaderData }: Route.ComponentProps) {
   const { placesJSON } = loaderData;
   return (
-    <div className="dark:text-white">
+    <div className="dark:text-white mt-16">
       <div className="flex flex-col gap-4 p-5 ">
         <div className="text-2xl font-medium ">What would you like today?</div>
         <div className="text-sm">{`${placesJSON.length} places available`}</div>

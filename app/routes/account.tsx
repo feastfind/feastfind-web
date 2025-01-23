@@ -30,7 +30,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
   const searchFormStatus: boolean = useOutletContext();
 
   return (
-    <main className="p-3">
+    <main className="p-3 mt-16">
       {searchFormStatus && <SearchForm />}
       {auth.isAuthenticated && user ? (
         <div className="flex mt-4 p-4 gap-4 border rounded-2xl overflow-auto items-center dark:bg-slate-700">

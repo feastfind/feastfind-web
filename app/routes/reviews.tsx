@@ -65,7 +65,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <div className="flex flex-col gap-4 p-5 dark:text-white">
+      <div className="mt-20 flex flex-col gap-4 p-5 dark:text-white">
         {searchFormStatus && <SearchForm />}
         <div className="flex justify-between items-center">
           <div className="text-2xl font-medium w-3/5 ">Recent Reviews</div>

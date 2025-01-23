@@ -36,7 +36,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
   const searchFormStatus: boolean = useOutletContext();
 
   return (
-    <main className="flex flex-col gap-4 p-5 mb-20">
+    <main className="flex flex-col gap-4 p-5 mb-20 mt-16">
       {searchFormStatus && <SearchForm />}
       <div className="w-full relative h-52 bg-gray-200 rounded-2xl overflow-hidden">
         <img
