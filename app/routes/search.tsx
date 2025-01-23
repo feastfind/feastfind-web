@@ -35,7 +35,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
   const { searchJSON } = loaderData;
   return (
     <>
-      <div className="flex flex-col gap-4 p-5">
+      <div className="flex flex-col gap-4 p-5 mt-16">
         <SearchForm />
       </div>
 

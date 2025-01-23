@@ -52,7 +52,7 @@ export default function Route({ actionData }: Route.ComponentProps) {
   });
 
   return (
-    <div className="max-w-[500px] relative min-h-screen border-l border-r mx-auto overflow-auto no-scrollbar">
+    <div className="mt-16 max-w-[500px] relative min-h-screen border-l border-r mx-auto overflow-auto no-scrollbar">
       <div className="h-screen flex items-center justify-center dark:text-white">
         <div className="w-full max-w-xs">
           <Form

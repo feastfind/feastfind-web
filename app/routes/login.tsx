@@ -47,7 +47,7 @@ export default function Route({ actionData }: Route.ComponentProps) {
   });
 
   return (
-    <div className="border-l border-r mx-auto overflow-auto no-scrollbar">
+    <div className="border-l border-r mx-auto overflow-auto no-scrollbar mt-16">
       <div className="flex justify-center mt-32">
         <div className="w-full max-w-xs">
           <Form

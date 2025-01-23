@@ -93,7 +93,7 @@ export default function Route({
   });
 
   return (
-    <div className="flex flex-col gap-4 p-5 mb-20">
+    <div className="flex flex-col gap-4 p-5 mb-20 mt-16">
       {searchFormStatus && <SearchForm />}
 
       <div className="text-2xl font-bold dark:text-yellow-500">
