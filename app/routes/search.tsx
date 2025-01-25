@@ -1,8 +1,7 @@
 import type { paths } from '@/schema';
 import type { Route } from './+types/search';
 import { ENV } from '@/env';
-import { Input } from '@/components/ui/input';
-import { Form, Link } from 'react-router';
+import { Link } from 'react-router';
 import { Banknote } from 'lucide-react';
 import { formatRupiah } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
@@ -50,12 +49,16 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         <ul className="grid gap-4">
           {searchJSON.menuItems.map((item) => (
             <li key={item.id}>
-              <Link to={`/${item.place.slug}/${item.slug}`} className="block">
+              <Link
+                to={`/${item.place.slug}/${item.slug}`}
+                viewTransition
+                className="block"
+              >
                 <div className="flex border rounded-2xl overflow-hidden h-32">
                   <div className="w-32 h-full bg-gray-50">
                     <img
                       alt="menu item"
-                      src={String(item.images[0].url)}
+                      src={String(item.images[0].url ?? '')}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -91,12 +94,12 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         )}
         <ul className="grid gap-4">
           {searchJSON?.places?.map((place) => (
-            <Link key={place.id} to={`/${place.slug}`}>
+            <Link viewTransition key={place.id} to={`/${place.slug}`}>
               <li className="h-72 border-b mb-3">
                 <div className="h-2/3 rounded-t-xl overflow-hidden">
                   <img
                     alt="banner"
-                    src={place.menuItems[0].images[0].url}
+                    src={place.menuItems[0]?.images[0]?.url ?? '/restoran.jpg'}
                     className="w-full h-full object-cover"
                   />
                 </div>

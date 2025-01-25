@@ -2,12 +2,11 @@ import type { paths } from '@/schema';
 import type { Route } from './+types/home';
 
 import { Input } from '@/components/ui/input';
-import { Banknote } from 'lucide-react';
-import { Link, Form } from 'react-router';
+import { Form } from 'react-router';
 import { ENV } from '@/env';
-import { formatRupiah } from '@/lib/utils';
-import { StarFilledIcon } from '@radix-ui/react-icons';
+
 import { Button } from '@/components/ui/button';
+import PlacesCard from '@/components/shared/PlacesCard';
 
 type PlacesResponse =
   paths['/places']['get']['responses'][200]['content']['application/json'];
@@ -47,41 +46,8 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         <h2>All places</h2>
 
         <ul className="flex flex-col gap-4">
-          {placesJSON.map((place) => (
-            <Link key={place.id} to={`/${place.slug}`}>
-              <li className="h-72 mb-3">
-                <div className="h-2/3">
-                  <img
-                    alt="banner"
-                    src={`${place.images[0]}-/resize/500/`}
-                    className="w-full h-full object-cover rounded-t-xl "
-                  />
-                </div>
-
-                <div className="flex h-1/3 border-b">
-                  <div className="text-sm w-5/6 p-3">
-                    <div className="text-xl font-bold text-red-800 dark:text-yellow-500 hover:text-amber-500 transition-all">
-                      {place.name}
-                    </div>
-                    <div className="flex items-center gap-2 text-emerald-800 dark:text-cyan-300">
-                      <Banknote />
-                      <div>{`${formatRupiah(
-                        parseInt(place.priceMin)
-                      )} - ${formatRupiah(parseInt(place.priceMax))}`}</div>
-                    </div>
-                    <div className="w-[280px] md:w-[350px] text-xs truncate">
-                      {place.address}
-                    </div>
-                  </div>
-                  <div className="w-1/6 flex items-center  justify-center border-l dark:border-l-grey">
-                    <StarFilledIcon className="size-8 p-1 text-yellow-500 rounded-full" />
-                    <span className="font-bold dark:text-yellow-500">
-                      {place.ratingScore}
-                    </span>
-                  </div>
-                </div>
-              </li>
-            </Link>
+          {placesJSON.map((place, index) => (
+            <PlacesCard place={place} key={index} />
           ))}
         </ul>
         <div className="flex justify-center">

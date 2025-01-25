@@ -32,29 +32,38 @@ export default function Route({ loaderData }: Route.ComponentProps) {
   return (
     <main className="p-3 mt-16">
       {searchFormStatus && <SearchForm />}
+
       {auth.isAuthenticated && user ? (
-        <div className="flex mt-4 p-4 gap-4 border rounded-2xl overflow-auto items-center dark:bg-slate-700">
-          <div>
-            <Avatar className="size-20">
-              <AvatarImage src={String(user.avatarURL)} alt={user.username} />
-              <AvatarFallback>{user.name}</AvatarFallback>
-            </Avatar>
-          </div>
+        <>
+          <div className="flex mt-4 p-4 gap-4 border rounded-2xl overflow-auto items-center dark:bg-slate-700">
+            <div>
+              <Avatar className="size-20">
+                <AvatarImage src={String(user.avatarURL)} alt={user.username} />
+                <AvatarFallback>{user.name}</AvatarFallback>
+              </Avatar>
+            </div>
 
-          <div className="p-2 flex flex-col gap-4 ">
-            <label className="text-xl dark:text-white">
-              Hello, {user.username}
-            </label>
+            <div className="p-2 flex flex-col gap-4 ">
+              <label className="text-xl dark:text-white">
+                Hello, {user.username}
+              </label>
 
-            <Form method="post">
-              <Button type="submit">Logout</Button>
-            </Form>
+              <div className="flex gap-2">
+                <Form method="post">
+                  <Button type="submit">Logout</Button>
+                </Form>
+              </div>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         <div className="p-3 bg-blue-200 rounded-2xl mt-3">
           Please{' '}
-          <Link to={'/login'} className="underline text-blue-500">
+          <Link
+            to={'/login'}
+            className="underline text-blue-500"
+            viewTransition
+          >
             Login
           </Link>
         </div>

@@ -126,6 +126,7 @@ export default function Route({ actionData }: Route.ComponentProps) {
             <div className="text-center text-sm">
               Already have an account?{' '}
               <Link
+                viewTransition
                 to="/login"
                 className="underline underline-offset-4 text-red-500 hover:text-red-700 dark:text-yellow-500 dark:hover:text-yellow-600 transition-all"
               >
