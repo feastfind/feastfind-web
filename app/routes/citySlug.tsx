@@ -46,8 +46,10 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           <Link
             to={`/${place.slug}`}
             className="dark:hover:bg-slate-900 cursor-pointer"
+            key={place.id}
+            viewTransition
           >
-            <li key={place.id} className="dark:text-slate-200">
+            <li className="dark:text-slate-200">
               <div className="border-b pt-2 pb-2 flex flex-col gap-2">
                 <h3 className="font-bold text-lg text-red-600 hover:text-red-700 dark:text-yellow-500">
                   {place.name}

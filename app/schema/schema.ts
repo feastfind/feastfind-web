@@ -53,3 +53,23 @@ export type itemReviewSchema = {
     };
   };
 };
+
+export type itemPlaceSchema = {
+  place: {
+    id: string;
+    slug: string;
+    name: string;
+    description: string | null;
+    ratingScore: number;
+    priceMin: string;
+    priceMax: string;
+    cityId: string;
+    address: string;
+    latitude: number;
+    longitude: number;
+    userId: string;
+    createdAt: string | null;
+    updatedAt: string | null;
+    images: string[];
+  };
+};

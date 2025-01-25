@@ -16,7 +16,10 @@ export default function ReviewsCard({ item }: itemReviewSchema) {
     >
       <div className="flex gap-4 items-center mb-2">
         <div className="w-1/5">
-          <Link to={`/${item.menuItem.place.slug}/${item.menuItem.slug}`}>
+          <Link
+            to={`/${item.menuItem.place.slug}/${item.menuItem.slug}`}
+            viewTransition
+          >
             <img
               src={item.menuItem.images[0].url}
               className="object-cover rounded-lg mb-2"
@@ -28,7 +31,10 @@ export default function ReviewsCard({ item }: itemReviewSchema) {
           <div className="flex gap-2">
             <UtensilsCrossedIcon className="p-1 bg-slate-200 dark:bg-slate-700 rounded-full" />
             <div className=" mb-2 text-sm text-red-600 dark:text-yellow-500 hover:text-amber-600">
-              <Link to={`/${item.menuItem.place.slug}/${item.menuItem.slug}`}>
+              <Link
+                to={`/${item.menuItem.place.slug}/${item.menuItem.slug}`}
+                viewTransition
+              >
                 {item.menuItem.name}
               </Link>
             </div>
@@ -37,7 +43,7 @@ export default function ReviewsCard({ item }: itemReviewSchema) {
           <div className="flex gap-2">
             <PinIcon className="p-1 bg-slate-200 dark:bg-slate-700 rounded-full" />
             <span className="text-sm text-amber-600 hover:text-amber-500 transition-all">
-              <Link to={`/${item.menuItem.place.slug}`}>
+              <Link to={`/${item.menuItem.place.slug}`} viewTransition>
                 {item.menuItem.place.name}
               </Link>
             </span>

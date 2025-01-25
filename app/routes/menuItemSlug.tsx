@@ -113,7 +113,9 @@ export default function Route({
 
       <div className="flex gap-2 text-amber-600 dark:text-cyan-500 hover:text-amber-800 dark:hover:text-cyan-400 cursor-pointer">
         <PinIcon className="p-1 bg-slate-200 dark:bg-slate-700 rounded-full" />
-        <Link to={`/${menuItem.place.slug}`}>{menuItem.place.name}</Link>
+        <Link to={`/${menuItem.place.slug}`} viewTransition>
+          {menuItem.place.name}
+        </Link>
       </div>
 
       <p className="dark:text-white">{menuItem.description}</p>
@@ -169,7 +171,7 @@ export default function Route({
         )}
 
         {!auth?.isAuthenticated && (
-          <Link to={'/login'}>
+          <Link to={'/login'} viewTransition>
             <Button className="max-w-40 self-center mt-3 dark:bg-yellow-500 dark:hover:bg-yellow-400">
               Write Review
             </Button>
