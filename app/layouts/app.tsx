@@ -50,7 +50,7 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
               <div className="flex gap-2 text-white items-center">
                 {user && (
                   <NavLink to="/account/place" viewTransition>
-                    <Button>Place</Button>
+                    <Button>Dashboard</Button>
                   </NavLink>
                 )}
                 {mode === 'light' ? (

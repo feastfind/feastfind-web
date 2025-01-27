@@ -1,5 +1,5 @@
 import type { paths } from '@/schema';
-import type { Route } from './+types/place';
+import type { Route } from './+types/userPlace';
 import { ENV } from '@/env';
 import { accessToken, auth } from '@/lib/auth';
 import { Link, redirect, useRevalidator } from 'react-router';
@@ -59,9 +59,11 @@ export default function Route({ loaderData }: Route.ComponentProps) {
     <div className="flex flex-col gap-4 p-5 mt-16">
       <div className="flex items-center justify-between gap-2">
         <div className="text-2xl font-medium text-foreground">Your Place</div>
-        <Link to="/account/place/add" viewTransition>
-          <PlusCircleIcon className="text-foreground" />
-        </Link>
+        <div className="hover:bg-slate-100 transition-all rounded-lg p-2 cursor-pointer">
+          <Link to="/account/place/add" viewTransition className="flex gap-2 ">
+            <PlusCircleIcon className="text-foreground" /> Add Place
+          </Link>
+        </div>
       </div>
 
       <div hidden={revalidator.state === 'idle'}>Revalidating...</div>
@@ -78,16 +80,23 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         {places &&
           places.map((place, index) => (
             <div className="flex items-center gap-4" key={index}>
-              <Link to={`/account/place/edit/${place.slug}`} viewTransition>
-                <div className="w-1/12">
-                  <Pencil1Icon className="size-4 text-green-700" />
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex gap-4">
+                  <Link to={`/account/place/edit/${place.slug}`} viewTransition>
+                    <Pencil1Icon className="size-4 text-green-700 dark:text-green-400" />
+                  </Link>
+                  <TrashIcon
+                    className="size-4 text-red-700 dark:text-red-400 cursor-pointer"
+                    onClick={() => deletePlaceHandler(place.slug)}
+                  />
                 </div>
-              </Link>
-              <div className="w-1/12 flex justify-center">
-                <TrashIcon
-                  className="size-4 text-red-700 cursor-pointer"
-                  onClick={() => deletePlaceHandler(place.slug)}
-                />
+
+                <Link to={`/account/place/${place.slug}/menu/add`}>
+                  <div className="text-foreground text-xs flex gap-2 items-center p-2 bg-slate-200 dark:bg-slate-800 rounded-md cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">
+                    <PlusCircleIcon className="text-foreground size-4" />
+                    Menu
+                  </div>
+                </Link>
               </div>
               <div className="w-10/12">
                 <PlacesCardWithOutImage place={place} />

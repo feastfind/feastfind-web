@@ -8,6 +8,7 @@ import { ENV } from '@/env';
 import { Label } from '@/components/ui/label';
 import { formatRupiah } from '@/lib/utils';
 import SearchForm from '@/components/shared/SearchForm';
+import MenuItemsCard from '@/components/shared/MenuItemsCard';
 
 type PlaceBySlugResponse =
   paths['/places/{slug}']['get']['responses'][200]['content']['application/json'];
@@ -111,36 +112,13 @@ export default function Route({ loaderData }: Route.ComponentProps) {
               {placeData.menuItems.length === 0 && (
                 <p className="text-sm">No menu items available</p>
               )}
-              {placeData.menuItems.map((item) => (
-                <li key={item.id} className="mb-4">
-                  <Link viewTransition to={`${item.slug}`} className="block">
-                    <div className="flex border rounded-2xl overflow-hidden h-32 bg-card">
-                      <div className="w-32 h-full bg-gray-50">
-                        <img
-                          alt="menu item"
-                          src={`${item.images[0]}-/resize/300/`}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-
-                      <div className="flex-1 p-4">
-                        <Label className="text-lg text-amber-800 dark:text-yellow-500 cursor-pointer font-bold">
-                          {item.name}
-                        </Label>
-                        <div className="flex items-center gap-1 dark:text-slate-300">
-                          {item.ratingScore}
-                          <StarFilledIcon className="text-amber-600 dark:text-yellow-500" />
-                        </div>
-                        <div className="flex items-center gap-2 font-light dark:text-cyan-300">
-                          <Banknote />
-                          <Label>{`${formatRupiah(
-                            parseInt(String(item.price))
-                          )}`}</Label>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </li>
+              {placeData.menuItems.map((item, index) => (
+                <MenuItemsCard
+                  item={item}
+                  key={index}
+                  isUserExist={false}
+                  placeSlug={null}
+                />
               ))}
             </ul>
           </section>

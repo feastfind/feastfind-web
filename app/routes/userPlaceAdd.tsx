@@ -1,4 +1,4 @@
-import { Form, redirect, useFetcher } from 'react-router';
+import { redirect, useFetcher } from 'react-router';
 import { Input } from '@/components/ui/input';
 import type { Route } from '../+types/root';
 import { Label } from '@radix-ui/react-label';
@@ -59,7 +59,7 @@ export default function Route() {
 
   return (
     <div className="flex flex-col gap-4 p-5 mt-16">
-      <div className="text-2xl font-medium dark:text-white">Create Place</div>
+      <div className="text-2xl font-medium dark:text-white">Add Place</div>
 
       <div className="p-4 bg-slate-100 rounded-lg text-foreground">
         <fetcher.Form method="post">

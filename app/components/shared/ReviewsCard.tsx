@@ -10,10 +10,7 @@ import { Link } from 'react-router';
 
 export default function ReviewsCard({ item }: itemReviewSchema) {
   return (
-    <li
-      key={item.id}
-      className="p-4 border border-gray-300 rounded-2xl mb-4 h-auto dark:bg-slate-800 dark:text-white"
-    >
+    <li className="p-4 border border-gray-300 rounded-2xl mb-4 h-auto dark:bg-slate-800 dark:text-white">
       <div className="flex gap-4 items-center mb-2">
         <div className="w-1/5">
           <Link

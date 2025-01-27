@@ -79,7 +79,7 @@ export default function Route() {
             </div>
 
             <div>
-              <div className="text-lg font-semibold text-red-700">
+              <div className="text-lg font-semibold text-red-700 dark:text-white">
                 {team.name}
               </div>
               <div className="text-sm flex items-center gap-2 text-slate-600 dark:text-slate-300">
