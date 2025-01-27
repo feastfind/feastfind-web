@@ -13,15 +13,12 @@ import { Button } from '@/components/ui/button';
 import type { paths } from '@/schema';
 import { ENV } from '@/env';
 import { useState } from 'react';
-// import { FileUploaderRegular } from '@uploadcare/react-uploader';
-import '@uploadcare/react-uploader/core.css';
 import { uploadFile } from '@uploadcare/upload-client';
 import {
   deleteFile,
   UploadcareSimpleAuthSchema,
 } from '@uploadcare/rest-client';
 import { CrossCircledIcon } from '@radix-ui/react-icons';
-// import uploadcare from 'uploadcare-widget';
 
 type MenuItemBySlugResponse =
   paths['/menu-items/{slug}']['get']['responses'][200]['content']['application/json'];
@@ -281,17 +278,9 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                 type="file"
                 name="featured-image"
                 id="featured-image"
-                // placeholder="http://feastfind.com/some-featured-image.jpg"
                 className="placeholder:text-slate-300 placeholder:text-xs"
-                // multiple
               />
             </div>
-            {/* <FileUploaderRegular
-              useCloudImageEditor={false}
-              sourceList="local, camera"
-              classNameUploader="uc-light"
-              pubkey={ENV.VITE_UPLOADCARE_PUBLIC_KEY ?? 'f7e80c7b79e521955634'}
-            /> */}
 
             <div className="flex flex-col gap-2">
               <Button

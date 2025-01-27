@@ -9,12 +9,10 @@ import type { paths } from '@/schema';
 import { ENV } from '@/env';
 import MenuItemsCard from '@/components/shared/MenuItemsCard';
 import { useRef } from 'react';
-// import { FileUploaderRegular } from '@uploadcare/react-uploader';
 import '@uploadcare/react-uploader/core.css';
 import { uploadFile } from '@uploadcare/upload-client';
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import { TrashIcon } from 'lucide-react';
-// import uploadcare from 'uploadcare-widget';
 
 type PlaceBySlugResponse =
   paths['/places/{slug}']['get']['responses'][200]['content']['application/json'];
@@ -93,9 +91,6 @@ export async function clientAction({
     console.log(response);
     return;
   }
-
-  // const newPlace: NewMenuItemResponse = await response.json();
-
   return redirect(`/account/place/${params.placeSlug}/menu/add#menu-items`);
 }
 
@@ -191,17 +186,9 @@ export default function Route({ params, loaderData }: Route.ComponentProps) {
                 name="featured-image"
                 id="featured-image"
                 required
-                // placeholder="http://feastfind.com/some-featured-image.jpg"
                 className="placeholder:text-slate-300 placeholder:text-xs"
-                // multiple
               />
             </div>
-            {/* <FileUploaderRegular
-              useCloudImageEditor={false}
-              sourceList="local, camera"
-              classNameUploader="uc-light"
-              pubkey={ENV.VITE_UPLOADCARE_PUBLIC_KEY ?? 'f7e80c7b79e521955634'}
-            /> */}
 
             <div className="flex flex-col gap-2">
               <Button
@@ -233,7 +220,6 @@ export default function Route({ params, loaderData }: Route.ComponentProps) {
           {placeData.menuItems.map((item, index) => (
             <div className="flex items-center" key={index}>
               <div className="w-1/6 flex gap-4">
-                {/* <div className="flex gap-4"> */}
                 <Link
                   to={`/account/place/${params.placeSlug}/menu/edit/${item.slug}`}
                   viewTransition
@@ -244,7 +230,6 @@ export default function Route({ params, loaderData }: Route.ComponentProps) {
                   className="size-4 text-red-700 dark:text-red-400 cursor-pointer"
                   onClick={() => deleteMenuItemHandle(item.slug)}
                 />
-                {/* </div> */}
               </div>
 
               <div className="w-5/6">
