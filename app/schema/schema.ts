@@ -73,3 +73,21 @@ export type itemPlaceSchema = {
     images: string[];
   };
 };
+
+export type itemMenuItemsSchema = {
+  item: {
+    id: string;
+    slug: string;
+    name: string;
+    price: unknown;
+    description: string | null;
+    ratingScore: number;
+    placeId: string;
+    userId: string;
+    createdAt: string | null;
+    updatedAt: string | null;
+    images: string[];
+  };
+  isUserExist: boolean;
+  placeSlug: string | null;
+};

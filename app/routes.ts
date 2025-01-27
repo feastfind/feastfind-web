@@ -14,6 +14,11 @@ export default [
     route('/account/place', 'routes/userPlace.tsx'),
     route('/account/place/add', 'routes/userPlaceAdd.tsx'),
     route('/account/place/edit/:placeSlug', 'routes/userPlaceEdit.tsx'),
+    route('/account/place/:placeSlug/menu/add', 'routes/userMenuItemAdd.tsx'),
+    route(
+      '/account/place/:placeSlug/menu/edit/:menuItemSlug',
+      'routes/userMenuItemEdit.tsx'
+    ),
 
     route('/city/:citySlug', 'routes/citySlug.tsx'),
     route('/explore', 'routes/explore.tsx'),

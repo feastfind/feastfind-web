@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 
 export default function PlacesCard({ place }: itemPlaceSchema) {
   return (
-    <Link key={place.id} to={`/${place.slug}`} viewTransition>
+    <Link to={`/${place.slug}`} viewTransition>
       <li className="h-72 mb-3">
         <div className="h-2/3">
           <img
