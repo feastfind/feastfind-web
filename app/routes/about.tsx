@@ -45,21 +45,21 @@ export default function Route() {
         <GitHubLogoIcon className="text-foreground" />
         <Link
           to="https://github.com/feastfind/"
-          className="text-red-500 hover:text-red-800 transition-all"
+          className="text-red-500 hover:text-red-700 transition-all"
           target="_blank"
         >
           Feastfind |
         </Link>
         <Link
           to="https://github.com/feastfind/feastfind-web"
-          className="text-red-500 hover:text-red-800 transition-all"
+          className="text-red-500 hover:text-red-700 transition-all"
           target="_blank"
         >
           Feastfind Web |
         </Link>
         <Link
           to="https://github.com/feastfind/feastfind-api"
-          className="text-red-500 hover:text-red-800 transition-all"
+          className="text-red-500 hover:text-red-700 transition-all"
           target="_blank"
         >
           Feastfind Api
