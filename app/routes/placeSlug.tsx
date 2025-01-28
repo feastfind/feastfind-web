@@ -10,6 +10,10 @@ import { formatRupiah } from '@/lib/utils';
 import SearchForm from '@/components/shared/SearchForm';
 import MenuItemsCard from '@/components/shared/MenuItemsCard';
 
+import 'mapbox-gl/dist/mapbox-gl.css';
+import Map, { Marker, NavigationControl } from 'react-map-gl';
+import { useState } from 'react';
+
 type PlaceBySlugResponse =
   paths['/places/{slug}']['get']['responses'][200]['content']['application/json'];
 
@@ -34,6 +38,10 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Route({ loaderData }: Route.ComponentProps) {
+  const [accessToken, setAccessToken] = useState<string>(
+    ENV.VITE_MAPBOX_ACCESS_TOKEN
+  );
+
   const { placeData } = loaderData;
 
   const searchFormStatus: boolean = useOutletContext();
@@ -96,14 +104,23 @@ export default function Route({ loaderData }: Route.ComponentProps) {
               </div>
             </div>
             <hr className="mt-2 mb-2 border-slate-400 dark:border-slate-600" />
-            <div>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.048821680061!2d104.0461696!3d1.1253095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d9891bc34134ff%3A0x9aa4327b66021810!2sde&#39;SAMPAN%20BBQ%20CENTRE!5e0!3m2!1sen!2sid!4v1737335666225!5m2!1sen!2sid"
-                width="100%"
-                height="250"
-                loading="lazy"
-              ></iframe>
-            </div>
+            <Map
+              mapboxAccessToken={accessToken}
+              initialViewState={{
+                longitude: placeData.longitude,
+                latitude: placeData.latitude,
+                zoom: 14,
+              }}
+              style={{ maxWidth: 600, height: 300, borderRadius: '10px' }}
+              mapStyle="mapbox://styles/mapbox/streets-v9"
+            >
+              <Marker
+                longitude={placeData.longitude}
+                latitude={placeData?.latitude}
+                color="red"
+              />
+              <NavigationControl />
+            </Map>
           </div>
 
           <section className="grid gap-4">
