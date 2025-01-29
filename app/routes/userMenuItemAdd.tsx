@@ -88,7 +88,7 @@ export async function clientAction({
   });
 
   if (response.status !== 201) {
-    console.log(response);
+    console.log(await response.json());
     return;
   }
   return redirect(`/account/place/${params.placeSlug}/menu/add#menu-items`);
@@ -96,6 +96,7 @@ export async function clientAction({
 
 export default function Route({ params, loaderData }: Route.ComponentProps) {
   let fetcher = useFetcher();
+  let busy = fetcher.state !== 'idle';
   const myRef = useRef<HTMLElement | null>(null);
   const revalidator = useRevalidator();
 
@@ -197,7 +198,7 @@ export default function Route({ params, loaderData }: Route.ComponentProps) {
                 id="submit"
                 className="dark:bg-slate-300"
               >
-                Submit
+                {busy ? 'Saving...' : 'Submit'}
               </Button>
             </div>
           </div>
