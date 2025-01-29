@@ -88,7 +88,8 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
         <Outlet context={searchFormStatus} />
 
         {location.pathname !== '/login' &&
-          location.pathname !== '/register' && (
+          location.pathname !== '/register' &&
+          location.pathname !== '/explore' && (
             <div className="text-sm text-center mt-4 mb-8 text-slate-600">
               &copy; Copyrights 2025 | Feastfind - All Rights Reserved
             </div>
