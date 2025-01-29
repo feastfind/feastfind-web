@@ -58,10 +58,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
     setLimitPage(20);
     setButtonLoadMore(true);
 
-    console.log(filterValueInput);
-
     if (filterValueInput === 'highest' || filterValueInput === 'lowest') {
-      console.log('highest atau lowest');
       const response = await fetch(
         `${ENV.VITE_BACKEND_API_URL}/reviews?rating=${filterValueInput}`
       );
@@ -70,7 +67,6 @@ export default function Route({ loaderData }: Route.ComponentProps) {
     }
 
     if (filterValueInput === 'recent') {
-      console.log('recent');
       setNewReviewsData(reviewsData);
     }
   }
