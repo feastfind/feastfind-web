@@ -7,8 +7,11 @@ import {
   ScrollRestoration,
 } from 'react-router';
 
+import { Theme, Spinner } from '@radix-ui/themes';
+
 import type { Route } from './+types/root';
 import stylesheet from './app.css?url';
+import '@radix-ui/themes/styles.css';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -45,7 +48,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body>
-        {children}
+        <Theme>{children}</Theme>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -54,11 +57,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export function HydrateFallback() {
-  return <p>Loading the App ... Please wait</p>;
+  return (
+    <div className="w-full min-h-screen text-red-600 flex justify-center items-center content-center">
+      <Spinner /> Loading the App ... Please wait
+    </div>
+  );
 }
 
 export default function AppRoute() {
-  return <Outlet />;
+  return (
+    <Theme>
+      <Outlet />
+    </Theme>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
