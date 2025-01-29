@@ -2,12 +2,11 @@ import type { paths } from '@/schema';
 import type { Route } from './+types/home';
 
 import { Input } from '@/components/ui/input';
-import { Form, useRevalidator } from 'react-router';
+import { Form } from 'react-router';
 import { ENV } from '@/env';
 
 import { Button } from '@/components/ui/button';
 import PlacesCard from '@/components/shared/PlacesCard';
-import { useFetcher } from 'react-router';
 import { useState } from 'react';
 
 type PlacesResponse =
@@ -29,27 +28,28 @@ export async function clientLoader() {
 
 export default function Route({ loaderData }: Route.ComponentProps) {
   const { placesJSON } = loaderData;
+  const [placesData, setPlacesData] = useState(placesJSON);
   const [limitPage, setLimitPage] = useState<number>(20);
-  const revalidator = useRevalidator();
+  const [buttonLoadMore, setButtonLoadMore] = useState(true);
 
-  let fetcher = useFetcher();
-  let busy = fetcher.state !== 'idle';
-
-  const handlePagination = async (limit: number): Promise<void> => {
+  const handlePagination = async (limit: number) => {
     const pageLimit = limitPage + limit;
     const response = await fetch(
-      `${ENV.VITE_BACKEND_API_URL}/places?limit${pageLimit}`
+      `${ENV.VITE_BACKEND_API_URL}/places?limit=${pageLimit}`
     );
-    await response.json();
+    const places = await response.json();
+    if (places.length === placesData.length) {
+      setButtonLoadMore(!buttonLoadMore);
+    }
+    setPlacesData(places);
     setLimitPage(limitPage + limit);
-    revalidator.revalidate();
   };
 
   return (
     <div className="dark:text-white mt-16">
       <div className="flex flex-col gap-4 p-5 ">
         <div className="text-2xl font-medium ">What would you like today?</div>
-        <div className="text-sm">{`${placesJSON.length} places available`}</div>
+        <div className="text-sm">{`${placesData.length} places available`}</div>
         <Form action="/search">
           <Input
             type="text"
@@ -64,18 +64,20 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         <h2>All places</h2>
 
         <ul className="flex flex-col gap-4">
-          {placesJSON.map((place, index) => (
+          {placesData.map((place, index) => (
             <PlacesCard place={place} key={index} />
           ))}
         </ul>
         <div className="flex flex-col items-center">
-          <Button
-            className="max-w-40 mt-3 mb-8 bg-red-700 dark:bg-slate-700 dark:text-white hover:dark:bg-slate-500"
-            type="submit"
-            onClick={() => handlePagination(10)}
-          >
-            {busy ? 'Loading ...' : 'Load more'}
-          </Button>
+          {buttonLoadMore && (
+            <Button
+              className="max-w-40 mt-3 mb-8 bg-red-700 dark:bg-slate-700 dark:text-white hover:dark:bg-slate-500"
+              type="submit"
+              onClick={() => handlePagination(5)}
+            >
+              Load More
+            </Button>
+          )}
         </div>
       </div>
     </div>
