@@ -5,7 +5,6 @@ import { Banknote } from 'lucide-react';
 import { Link } from 'react-router';
 
 export default function PlacesCard({ place }: itemPlaceSchema) {
-  console.log(place);
   return (
     <Link to={`/${place.slug}`} viewTransition>
       <li className="h-72 mb-3">
