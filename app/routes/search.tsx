@@ -95,7 +95,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         )}
         <ul className="grid gap-4">
           {searchJSON?.places?.map((place) => (
-            <Link to={`/${place.slug}`} viewTransition>
+            <Link key={place.id} to={`/${place.slug}`} viewTransition>
               <li className="h-72 mb-3">
                 <div className="h-2/3">
                   <img

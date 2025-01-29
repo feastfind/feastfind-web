@@ -5,13 +5,19 @@ import { Banknote } from 'lucide-react';
 import { Link } from 'react-router';
 
 export default function PlacesCard({ place }: itemPlaceSchema) {
+  console.log(place);
   return (
     <Link to={`/${place.slug}`} viewTransition>
       <li className="h-72 mb-3">
         <div className="h-2/3">
           <img
             alt="banner"
-            src={`${place.images[0]}-/resize/500/`}
+            // src={`${place.images[0]}-/resize/500/`}
+            src={
+              place.images[0]
+                ? `${place.images[0]}/-/resize/500/`
+                : '/restoran.jpg'
+            }
             className="w-full h-full object-cover rounded-t-xl "
           />
         </div>
