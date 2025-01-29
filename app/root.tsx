@@ -10,7 +10,7 @@ import {
 import type { Route } from './+types/root';
 import stylesheet from './app.css?url';
 import '@radix-ui/themes/styles.css';
-import { Theme } from '@radix-ui/themes';
+import { Spinner, Theme } from '@radix-ui/themes';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -56,7 +56,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export function HydrateFallback() {
-  return <p>Loading the App ... Please wait</p>;
+  return (
+    <div className="w-full min-h-screen text-red-600 flex justify-center items-center content-center">
+      <Spinner /> Loading the App ... Please wait
+    </div>
+  );
 }
 
 export default function AppRoute() {
