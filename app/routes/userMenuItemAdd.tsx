@@ -147,7 +147,7 @@ export default function Route({ params, loaderData }: Route.ComponentProps) {
                 name="name"
                 id="name"
                 required
-                placeholder="Place name"
+                placeholder="Menu item name"
                 className="placeholder:text-slate-300 placeholder:text-xs"
               />
             </div>
@@ -160,7 +160,7 @@ export default function Route({ params, loaderData }: Route.ComponentProps) {
                 name="description"
                 className="text-xs placeholder:text-slate-300 placeholder:text-xs"
                 required
-                placeholder="Describe the Place"
+                placeholder="Describe the Menu item"
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -179,7 +179,7 @@ export default function Route({ params, loaderData }: Route.ComponentProps) {
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="featured-image" className="text-sm text-black">
-                Menu Image <span className="text-xs text-red-800">*</span>
+                Menu Item Image <span className="text-xs text-red-800">*</span>
               </Label>
               <Input
                 type="file"
