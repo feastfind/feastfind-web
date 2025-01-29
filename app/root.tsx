@@ -9,6 +9,8 @@ import {
 
 import type { Route } from './+types/root';
 import stylesheet from './app.css?url';
+import '@radix-ui/themes/styles.css';
+import { Theme } from '@radix-ui/themes';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -45,7 +47,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body>
-        {children}
+        <Theme>{children}</Theme>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -58,7 +60,11 @@ export function HydrateFallback() {
 }
 
 export default function AppRoute() {
-  return <Outlet />;
+  return (
+    <Theme>
+      <Outlet />
+    </Theme>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
