@@ -165,7 +165,7 @@ export default function Route({
               type="submit"
               className="max-w-40 self-center mt-3 dark:bg-yellow-500 dark:hover:bg-yellow-400"
             >
-              Write Review
+              Submit Review
             </Button>
           </Form>
         )}
@@ -173,7 +173,7 @@ export default function Route({
         {!auth?.isAuthenticated && (
           <Link to={'/login'} viewTransition>
             <Button className="max-w-40 self-center mt-3 dark:bg-yellow-500 dark:hover:bg-yellow-400">
-              Write Review
+              Submit Review
             </Button>
           </Link>
         )}

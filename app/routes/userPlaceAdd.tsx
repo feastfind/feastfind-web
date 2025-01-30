@@ -1,12 +1,17 @@
 import { redirect, useFetcher } from 'react-router';
-import { Input } from '@/components/ui/input';
 import type { Route } from '../+types/root';
+
+import { Input } from '@/components/ui/input';
 import { Label } from '@radix-ui/react-label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import type { paths } from '@/schema';
 import { ENV } from '@/env';
 import { accessToken, auth } from '@/lib/auth';
+
+export function meta({}: Route.MetaArgs) {
+  return [{ title: 'Add New Place - FeastFind' }];
+}
 
 export async function clientLoader() {
   const user = await auth.getUser();

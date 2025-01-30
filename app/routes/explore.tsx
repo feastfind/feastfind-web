@@ -1,12 +1,13 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 import type { Route } from './+types/explore';
+import { Banknote } from 'lucide-react';
+import Map, { Marker, NavigationControl } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 import type { paths } from '@/schema';
 import type { itemPlaceSchema } from '@/schema/schema';
-
-import { useEffect, useState } from 'react';
 import { ENV } from '@/env';
-import Map, { Marker, NavigationControl } from 'react-map-gl';
-import { Banknote, MapPin } from 'lucide-react';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import {
   Drawer,
   DrawerClose,
@@ -20,20 +21,21 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@radix-ui/react-label';
 import { StarFilledIcon } from '@radix-ui/react-icons';
 import { formatRupiah } from '@/lib/utils';
-import { Link } from 'react-router';
+
+const accessToken = ENV.VITE_MAPBOX_ACCESS_TOKEN;
 
 type PlacesResponse =
   paths['/places']['get']['responses'][200]['content']['application/json'];
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'Explore - FeastFind' },
-    { name: 'description', content: 'Find feast closest to you!' },
+    { title: 'Explore Places - FeastFind' },
+    { name: 'description', content: 'Find some feasts that closest to you!' },
   ];
 }
 
 export async function clientLoader() {
-  const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/places`);
+  const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/places?limit=100`);
   const placesJSON: PlacesResponse = await response.json();
 
   return { placesJSON: placesJSON };
@@ -45,9 +47,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
   const [currentPlace, setCurrentPlace] = useState<itemPlaceSchema | null>(
     null
   );
-  const [accessToken, setAccessToken] = useState<string>(
-    ENV.VITE_MAPBOX_ACCESS_TOKEN
-  );
+
   const [userLocation, setUserLocation] = useState<{
     latitude: number;
     longitude: number;
@@ -88,7 +88,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
             initialViewState={{
               longitude: userLocation?.longitude,
               latitude: userLocation?.latitude,
-              zoom: 14,
+              zoom: 5,
             }}
             style={{ maxWidth: '100%', height: '100%' }}
             mapStyle="mapbox://styles/mapbox/streets-v9"
@@ -110,8 +110,15 @@ export default function Route({ loaderData }: Route.ComponentProps) {
                 anchor="center"
               >
                 <div className="flex flex-col items-center">
-                  <MapPin className="size-8 text-red-500" />
-                  <span className="font-medium ">{place.name}</span>
+                  <img
+                    src="/map-pin.svg"
+                    alt="Map Pin"
+                    width={30}
+                    height={30}
+                  />
+                  <p className="text-xs p-0.5 rounded bg-white border max-w-28 text-center">
+                    {place.name}
+                  </p>
                 </div>
               </Marker>
             ))}

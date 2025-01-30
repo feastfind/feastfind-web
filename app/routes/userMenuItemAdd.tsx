@@ -91,6 +91,9 @@ export async function clientAction({
     console.log(await response.json());
     return;
   }
+
+  const newMenuItem: NewMenuItemResponse = await response.json();
+
   return redirect(`/account/place/${params.placeSlug}/menu/add#menu-items`);
 }
 

@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router';
 
-export default function ReviewsCard({ item }: itemReviewSchema) {
+export default function ReviewCard({ item }: itemReviewSchema) {
   return (
     <li className="p-4 border border-gray-300 rounded-2xl mb-4 h-auto dark:bg-slate-800 dark:text-white">
       <div className="flex gap-4 items-center mb-2">
@@ -65,7 +65,7 @@ export default function ReviewsCard({ item }: itemReviewSchema) {
           {item.rating}
         </div>
         <div className="flex justify-end text-slate-500 text-sm">
-          {item.updatedAt}
+          {item.createdAt}
         </div>
       </div>
 

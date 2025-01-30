@@ -18,21 +18,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useState } from 'react';
-import ReviewsCard from '@/components/shared/ReviewsCard';
+import ReviewCard from '@/components/shared/review-card';
 
 export type ReviewsResponse =
   paths['/reviews']['get']['responses'][200]['content']['application/json'];
-
-export async function clientLoader() {
-  const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/reviews`);
-  const reviewsData: ReviewsResponse = await response.json();
-
-  reviewsData.forEach((review) => {
-    review.updatedAt = dayjs(review.updatedAt).fromNow();
-  });
-
-  return { reviewsData };
-}
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -41,12 +30,26 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+export async function clientLoader() {
+  const response = await fetch(`${ENV.VITE_BACKEND_API_URL}/reviews`);
+  const reviewsData: ReviewsResponse = await response.json();
+
+  const reviews = reviewsData.map((review) => {
+    return {
+      ...review,
+      createdAt: dayjs(review.createdAt).fromNow(),
+    };
+  });
+
+  return { reviews };
+}
+
 export default function Route({ loaderData }: Route.ComponentProps) {
-  const { reviewsData } = loaderData;
+  const { reviews } = loaderData;
 
   const searchFormStatus: boolean = useOutletContext();
   const [newReviewsData, setNewReviewsData] =
-    useState<ReviewsResponse>(reviewsData);
+    useState<ReviewsResponse>(reviews);
 
   const [limitPage, setLimitPage] = useState<number>(20);
   const [buttonLoadMore, setButtonLoadMore] = useState(true);
@@ -67,7 +70,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
     }
 
     if (filterValueInput === 'recent') {
-      setNewReviewsData(reviewsData);
+      setNewReviewsData(reviews);
     }
   }
 
@@ -77,7 +80,14 @@ export default function Route({ loaderData }: Route.ComponentProps) {
       const response = await fetch(
         `${ENV.VITE_BACKEND_API_URL}/reviews?limit=${pageLimit}&rating=${filterValue}`
       );
-      const reviews = await response.json();
+      const reviewsData: ReviewsResponse = await response.json();
+      const reviews = reviewsData.map((review) => {
+        return {
+          ...review,
+          createdAt: dayjs(review.createdAt).fromNow(),
+        };
+      });
+
       if (reviews.length === newReviewsData.length) {
         setButtonLoadMore(!buttonLoadMore);
       }
@@ -90,7 +100,14 @@ export default function Route({ loaderData }: Route.ComponentProps) {
     const response = await fetch(
       `${ENV.VITE_BACKEND_API_URL}/reviews?limit=${pageLimit}`
     );
-    const reviews = await response.json();
+    const reviewsData: ReviewsResponse = await response.json();
+    const reviews = reviewsData.map((review) => {
+      return {
+        ...review,
+        createdAt: dayjs(review.createdAt).fromNow(),
+      };
+    });
+
     if (reviews.length === newReviewsData.length) {
       setButtonLoadMore(!buttonLoadMore);
     }
@@ -106,10 +123,7 @@ export default function Route({ loaderData }: Route.ComponentProps) {
         <div className="flex justify-between items-center">
           <div className="text-2xl font-medium w-3/5 ">Recent Reviews</div>
           <div className="w-2/5">
-            <Select
-              onValueChange={handleFilter}
-              defaultValue={'Recent reviews'}
-            >
+            <Select onValueChange={handleFilter} defaultValue={'recent'}>
               <SelectTrigger>
                 <SelectValue
                   defaultValue={'recent'}
@@ -131,10 +145,10 @@ export default function Route({ loaderData }: Route.ComponentProps) {
           <ul>
             {newReviewsData
               ? newReviewsData.map((item) => {
-                  return <ReviewsCard key={item.id} item={item} />;
+                  return <ReviewCard key={item.id} item={item} />;
                 })
-              : reviewsData.map((item) => {
-                  return <ReviewsCard key={item.id} item={item} />;
+              : reviews.map((item) => {
+                  return <ReviewCard key={item.id} item={item} />;
                 })}
           </ul>
 
