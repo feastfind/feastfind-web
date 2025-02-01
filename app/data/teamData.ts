@@ -1,12 +1,5 @@
 const teamData = [
   {
-    name: 'M Haidar Hanif',
-    github: 'https://github.com/mhaidarhanif',
-    linkedin: 'https://linkedin.com/in/mhaidarhanif',
-    position: 'Project Manager',
-    photo: '/haidar.jpg',
-  },
-  {
     name: 'Lee Obby Waqoz',
     github: 'https://github.com/obbylee',
     linkedin: 'https://linkedin.com/in/leeobby',
@@ -33,6 +26,13 @@ const teamData = [
     linkedin: 'https://linkedin.com/in/naandalist',
     position: 'Frontend Developer',
     photo: '/nanda.png',
+  },
+  {
+    name: 'M Haidar Hanif',
+    github: 'https://github.com/mhaidarhanif',
+    linkedin: 'https://linkedin.com/in/mhaidarhanif',
+    position: 'Project Manager',
+    photo: '/haidar.jpg',
   },
 ];
 
